@@ -7,8 +7,8 @@ import numpy as np
 import logging
 
 
-logging.basicConfig(filename="check.log", level=logging.DEBUG, 
-                    format="%(asctime)s:%(levelname)s: %(message)s", 
+logging.basicConfig(filename="check.log", level=logging.DEBUG,
+                    format="%(asctime)s:%(levelname)s: %(message)s",
                     filemode='w')
 
 def simulate(noise):
@@ -28,23 +28,26 @@ def simulate(noise):
 
     try:
         output = generative_model(noise)
-        message = "Successful simulation" 
+        message = "Successful simulation"
         assert output.shape == (noise.shape[0], 4), "Shape error, it must be (noise.shape[0], 4). Please verify the shape of the output."
-        
+
         # write the output
-        np.save("output.npy", output)
+        np.save("parameters/output.npy", output)
 
     except Exception as e:
         message = e
-                
+
     finally:
         logging.debug(message)
 
     return output
 
-    
+
 if __name__ == "__main__":
     noise = np.load("data/noise.npy")
     simulate(noise)
-    
-    
+
+
+#%%
+
+#%%

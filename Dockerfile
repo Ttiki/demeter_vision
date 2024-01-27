@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
 
 # Copy files
-COPY parameters/ ./parameters/  
+COPY parameters/ ./parameters/
 COPY model.py .
 COPY main.py . 
 
