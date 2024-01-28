@@ -4,7 +4,7 @@ import numpy as np
 from torch.utils.data import DataLoader, Dataset, TensorDataset
 from torch import nn, optim
 from sklearn.preprocessing import StandardScaler
-
+import ot
 # Step 1: Data Loading and Preprocessing
 # Load the data
 noise = np.load("noise.npy")
@@ -64,12 +64,19 @@ criterion = nn.MSELoss()
 optimizer = optim.Adam(generator.parameters(), lr=0.001)
 
 # Step 3: Training Loop
-num_epochs = 100
+num_epochs = 150
 for epoch in range(num_epochs):
+    total_swd =0
     for batch_x, batch_y in dataloader:
         # Forward pass
         gen_y = generator(batch_x)
         loss = criterion(gen_y, batch_y)
+        # Compute Sliced Wasserstein Distance
+        # Convert tensors to numpy for SWD computation
+        synthetic_yields_np = gen_y.detach().cpu().numpy()
+        real_yields_np = batch_y.detach().cpu().numpy()
+        swd = ot.sliced.sliced_wasserstein_distance(real_yields_np, synthetic_yields_np, seed=0)
+        total_swd += swd
 
         # Backward pass and optimization
         optimizer.zero_grad()
@@ -77,5 +84,8 @@ for epoch in range(num_epochs):
         optimizer.step()
 
     # Print loss every few epochs
+    average_swd = total_swd / len(dataloader)
     if epoch % 10 == 0:
-        print(f'Epoch {epoch}, Loss: {loss.item()}')
+        print(f'Epoch {epoch}, Loss: {loss.item()}, Average SWD: {average_swd:.4f}')
+
+
