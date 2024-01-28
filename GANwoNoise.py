@@ -40,7 +40,7 @@ tensor_y = torch.Tensor(targets)
 # Create a TensorDataset and DataLoader
 dataset = TensorDataset(tensor_x, tensor_y)
 dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
-
+#still not considering noise
 # Step 2: Model Definition
 class Generator(nn.Module):
     def __init__(self, input_dim, output_dim):
