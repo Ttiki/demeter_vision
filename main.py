@@ -32,7 +32,7 @@ def simulate(noise):
         assert output.shape == (noise.shape[0], 4), "Shape error, it must be (noise.shape[0], 4). Please verify the shape of the output."
 
         # write the output
-        np.save("parameters/output.npy", output)
+        np.save("output.npy", output)
 
     except Exception as e:
         message = e
@@ -46,8 +46,3 @@ def simulate(noise):
 if __name__ == "__main__":
     noise = np.load("data/noise.npy")
     simulate(noise)
-
-
-#%%
-
-#%%
