@@ -1,0 +1,135 @@
+##############################################
+# Goal : return training parameters
+# For that we will have to define our loss function, specify number of epochs, batch size, 
+#latent dimension although this could be included in model.py as implied in the indication provided
+#-in the model.py provided code, and lastly the numnber of neurons for the generator and the number of neurons
+#-for the discriminator
+################################################
+import os
+import numpy as np
+import pandas as pd
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+import seaborn as sns
+directory=os.path.abspath(__file__)
+enclosingfolder=os.path.dirname(directory)
+enclosingfolder=os.path.dirname(enclosingfolder)
+noise_data_path_elhcs = os.path.join(enclosingfolder, 'data', 'noise.npy')
+
+# Load the data 
+noise_elhcs = np.load(noise_data_path_elhcs)
+latent_variable_elhcs = noise_elhcs [:, ...]
+station_40_path= os.path.join(enclosingfolder, 'data', 'station_40.csv')
+station_40 = pd.read_csv(station_40_path)
+station_49_path= os.path.join(enclosingfolder, 'data', 'station_49.csv')
+station_49 = pd.read_csv(station_49_path)
+station_63_path= os.path.join(enclosingfolder, 'data', 'station_63.csv')
+station_63 = pd.read_csv(station_63_path)
+station_80_path= os.path.join(enclosingfolder, 'data', 'station_80.csv')
+station_80 = pd.read_csv(station_80_path)
+#features/yield per station
+station_40_features=station_40.iloc[0:, :-1] 
+station_40_yield=station_40.iloc[:, -1] 
+station_49_features=station_49.iloc[:, :-1] 
+station_49_yield=station_49.iloc[:, -1] 
+station_63_features=station_63.iloc[:, :-1] 
+station_63_yield=station_63.iloc[:, -1] 
+station_80_features=station_80.iloc[:, :-1] 
+station_80_yield=station_80.iloc[:, -1] 
+# Combine data from all stations 
+combined_data_features = pd.concat([station_40_features, station_49_features, station_63_features, station_80_features], axis=1)
+combined_data_yield = pd.concat([station_40_yield, station_49_yield, station_63_yield, station_80_yield], axis=1)
+combined_data= pd.concat([combined_data_features,combined_data_yield], axis=1) #place all the yield of all four stations at the end (the four last columns)
+# Create the subset E based on the given conditions
+Q1, Q2, Q3, Q4 = 3.3241, 5.1292, 6.4897, 7.1301  # Replace with actual quantile values if different
+subset_E = combined_data[
+    (station_49['W_13'] + station_49['W_14'] + station_49['W_15'] <= Q1) &
+    (station_80['W_13'] + station_80['W_14'] + station_80['W_15'] <= Q2) &
+    (station_40['W_13'] + station_40['W_14'] + station_40['W_15'] <= Q3) &
+    (station_63['W_13'] + station_63['W_14'] + station_63['W_15'] <= Q4)
+]
+
+# Extract features (W) and targets (Y) for subset E
+features = subset_E.iloc[:, 1:-4] # 
+targets = subset_E.iloc[:, -4:]  # the yield are placed in the last four columns
+
+# Perform PCA on the features
+# Standardize the features
+scaler = StandardScaler()
+scaled_features = scaler.fit_transform(features)
+
+
+
+# Display variance for each feature
+# Assuming 'scaled_features' is the standardized feature matrix
+correlation_matrix = np.corrcoef(scaled_features, rowvar=False)
+
+# correlation among correlated features 
+correlation_graph=[]
+for i in range(2,10) :
+    correlation_graph.append((np.sum(~np.array([(correlation_matrix <= i/10)]))))
+bars=plt.bar(x=np.array(range(2,10))/10,height=correlation_graph,width=.05)
+for bar, label in zip(bars, correlation_graph):
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2, height, f'{label:.2f}', ha='center', va='bottom')
+
+plt.title('Bar Plot with Pods and Labels')
+plt.xlabel('X-axis')
+plt.ylabel('Correlation Values')
+plt.show()
+Hij=[]
+I=[]
+for i in range(1,scaled_features.shape[1]) :
+    I=[]
+    for j in range(1,scaled_features.shape[1]) :
+        if correlation_matrix[i,j]>=.8  and j!=i:
+            I.append(j) 
+    if I==[] : 
+        pass
+    else :    
+        Hij.append(I)
+    
+print(Hij)
+kds=[len(sub) for sub in Hij]
+print(kds)
+print(sum(kds))
+print(len(kds))
+#----------------------------
+#We notice that among the (few) correlated features (corelation>o.2) the correlation is very high!!
+#The observation holds even when we include rows excluded from subset E
+#Among the very correlated ones we will keep only one feature(correlation>.8) 
+#----------------------------
+
+
+#getting rid of correlated features
+todelete=[[20, 39, 58,21, 40, 59], [22, 41, 60], [23, 42, 61], [24, 43, 62], [25, 44, 63], [26, 45, 64], [27, 46, 65], [37, 56], [38, 57]]
+flat_delete = [item for sublist in todelete for item in sublist]
+filtered_features = np.delete(scaled_features, flat_delete, axis=1)
+Hij=[]
+I=[]
+print(filtered_features.shape,scaled_features.shape)
+correlation_matrix = np.corrcoef(filtered_features, rowvar=False)
+
+# correlation among correlated features after dropping very correlated features
+correlation_graph=[]
+for i in range(2,10) :
+    correlation_graph.append((np.sum(~np.array([(correlation_matrix <= i/10)]))))
+bars=plt.bar(x=np.array(range(2,10))/10,height=correlation_graph,width=.05)
+for bar, label in zip(bars, correlation_graph):
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2, height, f'{label:.2f}', ha='center', va='bottom')
+
+plt.title('Bar Plot with Pods and Labels')
+plt.xlabel('X-axis')
+plt.ylabel('Correlation Values')
+plt.show()
+
+# Training parameters:
+# -------------------
+EPOCHS =  100 # one forward/backward pass in all training samples
+BATCH_SIZE = 32  # Number of training sample in one forward/backward pass
+LATENT_DIM = 10
+NEURONS_G = 100
+NEURONS_D = 100
+# -------------------

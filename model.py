@@ -12,6 +12,8 @@
 ############################################################################
 
 # <!> DO NOT ADD ANY OTHER ARGUMENTS <!>
+
+
 def generative_model(noise):
     """
     Generative model
