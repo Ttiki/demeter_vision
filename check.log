@@ -1,3 +1,9 @@
-2024-01-28 19:58:45,077:WARNING: At this time, the v2.11+ optimizer `tf.keras.optimizers.Adam` runs slowly on M1/M2 Macs, please use the legacy Keras optimizer instead, located at `tf.keras.optimizers.legacy.Adam`.
-2024-01-28 19:58:45,089:WARNING: At this time, the v2.11+ optimizer `tf.keras.optimizers.Adam` runs slowly on M1/M2 Macs, please use the legacy Keras optimizer instead, located at `tf.keras.optimizers.legacy.Adam`.
-2024-01-28 19:59:12,223:DEBUG: Shape error, it must be (noise.shape[0], 4). Please verify the shape of the output.
+2024-01-31 22:55:33,277:WARNING: At this time, the v2.11+ optimizer `tf.keras.optimizers.Adam` runs slowly on M1/M2 Macs, please use the legacy Keras optimizer instead, located at `tf.keras.optimizers.legacy.Adam`.
+2024-01-31 22:55:33,285:DEBUG: Exception encountered when calling layer "sequential_1" (type Sequential).
+
+Input 0 of layer "dense_2" is incompatible with the layer: expected axis -1 of input shape to have value 12, but received input with shape (None, 20)
+
+Call arguments received by layer "sequential_1" (type Sequential):
+  • inputs=tf.Tensor(shape=(None, 20), dtype=float32)
+  • training=None
+  • mask=None
