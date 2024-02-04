@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import seaborn as sns
 from jax import jit as jit
 from jax import grad
@@ -54,19 +54,14 @@ subset_E = combined_data[
 ]
 
 # Extract features (W) and targets (Y) for subset E
-features = subset_E.iloc[:, 1:-4] # 
+features = subset_E.iloc[:, 1:] # 
 targets = subset_E.iloc[:, -4:]  # the yield are placed in the last four columns
-
-# Perform PCA on the features
-# Standardize the features
-scaler = StandardScaler()
-scaled_features = scaler.fit_transform(features)
 
 
 
 # Display variance for each feature
 # Assuming 'scaled_features' is the standardized feature matrix
-correlation_matrix = np.corrcoef(scaled_features, rowvar=False)
+correlation_matrix = np.corrcoef(features, rowvar=False)
 
 # correlation among correlated features 
 correlation_graph=[]
@@ -83,9 +78,9 @@ plt.ylabel('Correlation Values')
 plt.show()
 Hij=[]
 I=[]
-for i in range(1,scaled_features.shape[1]) :
+for i in range(1,features.shape[1]) :
     I=[]
-    for j in range(1,scaled_features.shape[1]) :
+    for j in range(1,features.shape[1]) :
         if correlation_matrix[i,j]>=.8  and j!=i:
             I.append(j) 
     if I==[] : 
@@ -108,10 +103,10 @@ print(len(kds))
 #getting rid of correlated features
 todelete=[[20, 39, 58,21, 40, 59], [22, 41, 60], [23, 42, 61], [24, 43, 62], [25, 44, 63], [26, 45, 64], [27, 46, 65], [37, 56], [38, 57]]
 flat_delete = [item for sublist in todelete for item in sublist]
-filtered_features = np.delete(scaled_features, flat_delete, axis=1)
+filtered_features = np.delete(features, flat_delete, axis=1)
 Hij=[]
 I=[]
-print(filtered_features.shape,scaled_features.shape)
+print(filtered_features.shape,features.shape)
 
 correlation_matrix = np.corrcoef(filtered_features, rowvar=False)
 
@@ -129,13 +124,17 @@ plt.xlabel('X-axis')
 plt.ylabel('Correlation Values')
 plt.show()
 
+
+scaler = MinMaxScaler()
+scaled_filtered_features = scaler.fit_transform(filtered_features)
+
 #VAE JAX
 #---------------------------
 #Building the encoder :
 import jax.numpy as jnp
 from jax import random
 from jax.example_libraries import stax # neural network library
-from jax.example_libraries.stax import Dense, Relu, Sigmoid
+from jax.example_libraries.stax import Dense, Relu, Sigmoid, Elu, Tanh, LeakyRelu,Softplus, Softmax
 
 rand_key = random.PRNGKey(5)
 k1, k2 = random.split(rand_key)
@@ -145,8 +144,16 @@ rand_key = k1
 
 #use k2
 random.normal(k2, shape=(2,3))
+from sklearn.model_selection import train_test_split
+# Assuming filtered_features and targets are your original data
+x_train, _, _, _ = train_test_split(scaled_filtered_features, targets, test_size=0.2, random_state=42)
 
-input_dim = filtered_features.shape[-1]
+# Reshape the arrays
+x_train_standard = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
+
+
+
+input_dim = x_train_standard.shape[1]
 hidden_dim = 128
 latent_dim = 47
 
@@ -168,15 +175,12 @@ def sample(rand_key, z_mean, z_log_var):
 fast_sample = jit(sample)
 
 #Building the Decoder:
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(filtered_features, targets, test_size=0.2, random_state=42)
 
-x_train_array = x_train
-x_test_array = x_test
+def leaky_relu(x, alpha=0.01):
+    return jnp.where(x > 0, x, alpha * x)
 
 # Reshape the arrays
-x_train_standard = x_train_array.reshape((len(x_train_array), np.prod(x_train_array.shape[1:])))
-x_test_standard = x_test_array.reshape((len(x_test_array), np.prod(x_test_array.shape[1:])))
+
 decoder_init, decoder_fn = stax.serial(
     Dense(hidden_dim), Relu, Dense(input_dim), Sigmoid)
 
@@ -221,21 +225,10 @@ from functools import partial
 rand_key, key = random.split(rand_key)
 vae_loss_rand = partial(vae_loss, key) # this creates a function val_loss without the rand_key argument
 
-grads = grad(vae_loss_rand)(params, x_train_standard[0:1])
-
-print("Shapes of all gradients of the loss with regards to each parameter, for a batch of 1 inputs: \n")
-names = ["[enc] (W,b) of first Dense", "[enc] Relu", "[enc] W,b) of second Dense",
-         "[dec] (W,b) of first Dense", "[dec] Relu", "[dec] (W,b) of second Dense", "[dec] Sigmoid"]
-
-print("\n".join([name + " : "+ " ".join([str(p.shape) for p in param]) for name, param in zip(names, grads)]))
-
-
-
-
 # Training parameters:
 # -------------------
 EPOCHS =  100 # one forward/backward pass in all training samples
-BATCH_SIZE = 32  # Number of training sample in one forward/backward pass
+
 #LATENT_DIM = 10
 NEURONS_G = 100
 NEURONS_D = 100
@@ -247,13 +240,15 @@ _, params_dec = decoder_init(rand_key, (-1, latent_dim))
 params = params_enc + params_dec
 import jax
 from jax.example_libraries import stax, optimizers
-
+print(x_train_standard.shape)
 data_size = x_train_standard.shape[0]
 batch_size = 32
-learning_rate = 0.001
+learning_rate = 0.0001 
 
 opt_init, opt_update, get_params = optimizers.adam(learning_rate)
 opt_state = opt_init(params)
+value_and_grad_fun = jit(jax.value_and_grad(lambda params, x: vae_loss(key, params, x)))
+print(value_and_grad_fun(params, x_train_standard)[0])
 
 losses = []
 
@@ -262,7 +257,9 @@ def update(key, batch, opt_state):
     params = get_params(opt_state)
     value_and_grad_fun = jit(jax.value_and_grad(lambda params, x: vae_loss(key, params, x)))
     loss, grads = value_and_grad_fun(params, batch)
+    grads = jax.tree_map(lambda g: jnp.clip(g, -1.0, 1.0), grads)
     opt_state = opt_update(0, grads, opt_state)
+    print(value_and_grad_fun(params, x_train_standard)[0])
     return opt_state, loss
 
 for epochs in range(EPOCHS):
@@ -270,6 +267,7 @@ for epochs in range(EPOCHS):
     rand_key, key = random.split(rand_key)
     permutation = random.permutation(key, data_size)
     for i in range(data_size // 32 - 1):
+        
         batch = x_train_standard[permutation[i * 32:(i+1)*32]]
         rand_key, key = random.split(rand_key)
         opt_state, loss = update(key, batch, opt_state)
@@ -286,5 +284,13 @@ rand_key, key = random.split(key)
 params = get_params(opt_state)
 params_dec = params[3:]
 z = random.normal(key, shape=(1,latent_dim))
-generated = decoder_fn(params_dec, z)
-print(generated)
+jit_decoder_fn = jit(decoder_fn)  # Apply jit to decoder_fn
+generated = jit_decoder_fn(params_dec, z)  # Call the jitted function
+print(generated[0,-4:])
+print(x_train_standard[0,-4:])
+
+generated_yields = scaler.inverse_transform(generated)
+training_yields = scaler.inverse_transform(x_train_standard)
+print(generated_yields[0,-4:])
+print(training_yields[0,-4:])
+print(features[0,-4])
