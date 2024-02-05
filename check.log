@@ -1,0 +1,9 @@
+2024-02-05 10:44:54,667:WARNING: At this time, the v2.11+ optimizer `tf.keras.optimizers.Adam` runs slowly on M1/M2 Macs, please use the legacy Keras optimizer instead, located at `tf.keras.optimizers.legacy.Adam`.
+2024-02-05 10:44:54,675:DEBUG: Exception encountered when calling layer "sequential_1" (type Sequential).
+
+Input 0 of layer "dense_2" is incompatible with the layer: expected axis -1 of input shape to have value 12, but received input with shape (None, 20)
+
+Call arguments received by layer "sequential_1" (type Sequential):
+  • inputs=tf.Tensor(shape=(None, 20), dtype=float32)
+  • training=None
+  • mask=None
