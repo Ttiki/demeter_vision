@@ -3,6 +3,8 @@ import numpy as np
 from keras.models import Sequential, Model
 from keras.layers import Dense, Input
 from keras.optimizers import Adam
+from ot.backend import tf
+
 import ds_loading as ds
 import evaluation
 import viz
@@ -10,27 +12,25 @@ import viz
 def build_generator(input_dim):
     model = Sequential()
     model.add(Dense(128, input_dim=input_dim, activation='relu'))
-    model.add(Dense(20, activation='linear'))
+    model.add(Dense(input_dim, activation='linear'))
     return model
 
 def build_discriminator(input_dim):
     model = Sequential()
     model.add(Dense(64, input_dim=input_dim, activation='relu'))
     model.add(Dense(1, activation='sigmoid'))
-    model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=0.0002))
+    model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=0.0002))
     return model
 
 def build_gan(generator, discriminator, input_dim):
     discriminator.trainable = False
-
     gan_input = Input(shape=(input_dim,))
     x = generator(gan_input)
     gan_output = discriminator(x)
-
     gan_model = Model(inputs=gan_input, outputs=gan_output)
-    gan_model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=0.0002))
-
+    gan_model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=0.0002))
     return gan_model
+
 
 def train_gan(generator, discriminator, gan_model, noise, epsilon_samples, real_labels):
     batch_size = len(noise)
@@ -44,11 +44,11 @@ def train_gan(generator, discriminator, gan_model, noise, epsilon_samples, real_
 
 def train_gan_with_datasets(generator, discriminator, gan_model, input_dim, num_epochs, batch_size):
     noise = np.random.normal(0, 1, (batch_size, input_dim))
-    columns_to_keep = ['W_13', 'W_14', 'W_15']
-    dataset1 = ds.dataset_station40[columns_to_keep]
-    dataset2 = ds.dataset_station49[columns_to_keep]
-    dataset3 = ds.dataset_station63[columns_to_keep]
-    dataset4 = ds.dataset_station80[columns_to_keep]
+    columns_to_keep = [14, 15, 16]
+    dataset1 = ds.dataset_station40[:, columns_to_keep]
+    dataset2 = ds.dataset_station49[:, columns_to_keep]
+    dataset3 = ds.dataset_station63[:, columns_to_keep]
+    dataset4 = ds.dataset_station80[:, columns_to_keep]
     real_samples = np.concatenate((dataset1, dataset2, dataset3, dataset4), axis=0)
     np.random.shuffle(real_samples)
     Q = np.array([3.3241, 5.1292, 6.4897, 7.1301])
@@ -67,7 +67,7 @@ def train_gan_with_datasets(generator, discriminator, gan_model, input_dim, num_
     return generated_samples
 
 def generative_model(noise):
-    input_dim = 12
+    input_dim = 3
     num_epochs = 1000
     batch_size = 64
     generator = build_generator(input_dim)
