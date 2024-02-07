@@ -17,6 +17,7 @@ from jax import grad
 from ot.sliced import sliced_wasserstein_distance
 import jax.numpy as jnp
 from scipy.optimize import fsolve
+from scipy.special import expit
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
@@ -172,7 +173,7 @@ x_test_standard = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
 
 
 input_dim = x_train_standard.shape[1]
-hidden_dim = 4
+hidden_dim = 51
 latent_dim = 50
 
 encoder_init, encoder_fn = stax.serial(
@@ -341,8 +342,8 @@ print(sliced_wasserstein_distance(generated_yields_numpy,testing_data))
 unscaled_testing_data=scaler.inverse_transform(testing_data)
 unscaled_generated_yields=scaler.inverse_transform(generated_yields)
 print(sliced_wasserstein_distance(unscaled_generated_yields,unscaled_testing_data))
-unscaled_testing_data= np.vectorize(inverse_sigmoid)(unscaled_testing_data)
-unscaled_generated_yields= np.vectorize(inverse_sigmoid)(unscaled_generated_yields)
+unscaled_testing_data= expit(unscaled_testing_data)
+unscaled_generated_yields= expit(unscaled_generated_yields)
 print(sliced_wasserstein_distance(unscaled_generated_yields,unscaled_testing_data))
 # Create subplots
 fig, (ax1, ax2,ax3,ax4) = plt.subplots(4, 1, figsize=(10, 8))
