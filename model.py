@@ -20,13 +20,16 @@ def build_discriminator(input_dim):
     model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=0.0002))
     return model
 
-def build_gan(generator, discriminator):
+def build_gan(generator, discriminator, input_dim):
     discriminator.trainable = False
-    gan_input = Input(shape=(generator.input_shape[1],))
+
+    gan_input = Input(shape=(input_dim,))
     x = generator(gan_input)
     gan_output = discriminator(x)
+
     gan_model = Model(inputs=gan_input, outputs=gan_output)
     gan_model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=0.0002))
+
     return gan_model
 
 def train_gan(generator, discriminator, gan_model, noise, epsilon_samples, real_labels):
@@ -69,7 +72,7 @@ def generative_model(noise):
     batch_size = 64
     generator = build_generator(input_dim)
     discriminator = build_discriminator(input_dim)
-    gan_model = build_gan(generator, discriminator)
+    gan_model = build_gan(generator, discriminator, input_dim)
     noise = np.random.normal(0, 1, (batch_size, input_dim))
     generated_samples = train_gan_with_datasets(generator, discriminator, gan_model, input_dim, num_epochs, batch_size)
     viz.visualize_generated_data(generated_samples)
