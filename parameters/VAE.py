@@ -8,119 +8,28 @@
 import os
 import numpy as np
 import pandas as pd
-from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler, MinMaxScaler,Binarizer
 import seaborn as sns
-from jax import jit as jit
-from jax import grad
-from ot.sliced import sliced_wasserstein_distance
-import jax.numpy as jnp
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, Binarizer
+from sklearn.model_selection import train_test_split
 from scipy.optimize import fsolve
 from scipy.special import expit
-
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-directory=os.path.abspath(__file__)
-enclosingfolder=os.path.dirname(directory)
-enclosingfolder=os.path.dirname(enclosingfolder)
-noise_data_path_elhcs = os.path.join(enclosingfolder, 'data', 'noise.npy')
-
-# Load the data 
-noise_elhcs = np.load(noise_data_path_elhcs)
-latent_variable_elhcs = noise_elhcs [:, ...]
-station_40_path= os.path.join(enclosingfolder, 'data', 'station_40.csv')
-station_40 = pd.read_csv(station_40_path)
-station_49_path= os.path.join(enclosingfolder, 'data', 'station_49.csv')
-station_49 = pd.read_csv(station_49_path)
-station_63_path= os.path.join(enclosingfolder, 'data', 'station_63.csv')
-station_63 = pd.read_csv(station_63_path)
-station_80_path= os.path.join(enclosingfolder, 'data', 'station_80.csv')
-station_80 = pd.read_csv(station_80_path)
-#features/yield per station
-station_40_features=station_40.iloc[0:, :-1] 
-station_40_yield=station_40.iloc[:, -1] 
-station_49_features=station_49.iloc[:, :-1] 
-station_49_yield=station_49.iloc[:, -1] 
-station_63_features=station_63.iloc[:, :-1] 
-station_63_yield=station_63.iloc[:, -1] 
-station_80_features=station_80.iloc[:, :-1] 
-station_80_yield=station_80.iloc[:, -1] 
-# Combine data from all stations 
-combined_data_features = pd.concat([station_40_features, station_49_features, station_63_features, station_80_features], axis=1)
-combined_data_yield = pd.concat([station_40_yield, station_49_yield, station_63_yield, station_80_yield], axis=1)
-combined_data= pd.concat([combined_data_features,combined_data_yield], axis=1) #place all the yield of all four stations at the end (the four last columns)
-# Create the subset E based on the given conditions
-Q1, Q2, Q3, Q4 = 3.3241, 5.1292, 6.4897, 7.1301  # Replace with actual quantile values if different
-subset_E = combined_data[
-    (station_49['W_13'] + station_49['W_14'] + station_49['W_15'] <= Q1) &
-    (station_80['W_13'] + station_80['W_14'] + station_80['W_15'] <= Q2) &
-    (station_40['W_13'] + station_40['W_14'] + station_40['W_15'] <= Q3) &
-    (station_63['W_13'] + station_63['W_14'] + station_63['W_15'] <= Q4)
-]
-
-# Extract features (W) and targets (Y) for subset E
-features = subset_E.iloc[:, 1:] # 
-targets = subset_E.iloc[:, -4:]  # the yield are placed in the last four columns
+from ot.sliced import sliced_wasserstein_distance
+from jax import jit, grad, numpy as jnp, random
+from jax.example_libraries import stax, optimizers
+from jax.example_libraries.stax import Dense, Relu, Sigmoid, Elu, Tanh, LeakyRelu, Softplus, Softmax
 
 
 
-# Display variance for each feature
-# Assuming 'scaled_features' is the standardized feature matrix
-correlation_matrix = np.corrcoef(features, rowvar=False)
-
-# correlation among correlated features 
-correlation_graph=[]
-for i in range(2,10) :
-    correlation_graph.append((np.sum(~np.array([(correlation_matrix <= i/10)]))))
-bars=plt.bar(x=np.array(range(2,10))/10,height=correlation_graph,width=.05)
-for bar, label in zip(bars, correlation_graph):
-    height = bar.get_height()
-    plt.text(bar.get_x() + bar.get_width()/2, height, f'{label:.2f}', ha='center', va='bottom')
-
-plt.title('Bar Plot with Pods and Labels')
-plt.xlabel('X-axis')
-plt.ylabel('Correlation Values')
-plt.show()
-Hij=[]
-I=[]
-for i in range(1,features.shape[1]) :
-    I=[]
-    for j in range(1,features.shape[1]) :
-        if correlation_matrix[i,j]>=.8  and j!=i:
-            I.append(j) 
-    if I==[] : 
-        pass
-    else :    
-        Hij.append(I)
-    
-print(Hij)
-kds=[len(sub) for sub in Hij]
-print(kds)
-print(sum(kds))
-print(len(kds))
-#----------------------------
-#We notice that among the (few) correlated features (corelation>o.2) the correlation is very high!!
-#The observation holds even when we include rows excluded from subset E
-#Among the very correlated ones we will keep only one feature(correlation>.8) 
-#----------------------------
-def inverse_sigmoid(y):
-    equation = lambda x: sigmoid(x) - y
-    # Use fsolve to find the root of the equation
-    x_solution = fsolve(equation, 0.0)[0]
-    return x_solution
 
 
-#getting rid of correlated features
-todelete=[[20, 39, 58,21, 40, 59], [22, 41, 60], [23, 42, 61], [24, 43, 62], [25, 44, 63], [26, 45, 64], [27, 46, 65], [37, 56], [38, 57]]
-flat_delete = [item for sublist in todelete for item in sublist]
-filtered_features = np.delete(features, flat_delete, axis=1)
-Hij=[]
-I=[]
-print(filtered_features.shape,features.shape)
-filtered_features = 1 / (1 + jnp.exp(-filtered_features))# 
-targets =  1 / (1 + jnp.exp(-targets.values))
+
+
+
+
+
+
 
 correlation_matrix = np.corrcoef(filtered_features, rowvar=False)
 
@@ -145,10 +54,7 @@ scaled_filtered_features = scaler.fit_transform(filtered_features)
 #VAE JAX
 #---------------------------
 #Building the encoder :
-import jax.numpy as jnp
-from jax import random
-from jax.example_libraries import stax # neural network library
-from jax.example_libraries.stax import Dense, Relu, Sigmoid, Elu, Tanh, LeakyRelu,Softplus, Softmax
+
 
 
 
@@ -160,7 +66,6 @@ rand_key = k1
 
 #use k2
 random.normal(k2, shape=(2,3))
-from sklearn.model_selection import train_test_split
 # Assuming filtered_features and targets are your original data
 x_train, x_test= train_test_split(scaled_filtered_features, test_size=0.2, random_state=42)
 plt.plot(x_test)
@@ -260,8 +165,7 @@ _, params_enc = encoder_init(rand_key, (-1, input_dim))
 _, params_dec = decoder_init(rand_key, (-1, latent_dim))
 params = params_enc + params_dec
 print(len(params_enc),len(params_dec),"hereee")
-import jax
-from jax.example_libraries import stax, optimizers
+
 print(x_train_standard.shape)
 data_size = x_train_standard.shape[0]
 batch_size = 64
