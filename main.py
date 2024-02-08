@@ -1,17 +1,17 @@
 ##############################################
-# DO NOT MODIFY THIS FILE
+# DO NOT MODIFY THE SIMULATE FUNCTION
 ##############################################
 
 from model import generative_model
 import numpy as np
 import logging
 
-
-logging.basicConfig(filename="check.log", level=logging.DEBUG, 
-                    format="%(asctime)s:%(levelname)s: %(message)s", 
+logging.basicConfig(filename="check.log", level=logging.DEBUG,
+                    format="%(asctime)s:%(levelname)s: %(message)s",
                     filemode='w')
 
-def simulate(noise):
+
+def simulate(noise, scenario):
     """
     Simulation of your Generative Model
 
@@ -19,6 +19,8 @@ def simulate(noise):
     ----------
     noise : ndarray
         input of the generative model
+    scenario:ndarray
+        conditional variable (one-hot encoder)
 
     Returns
     -------
@@ -28,23 +30,26 @@ def simulate(noise):
 
     try:
         output = generative_model(noise)
-        message = "Successful simulation" 
-        assert output.shape == (noise.shape[0], 4), "Shape error, it must be (noise.shape[0], 4). Please verify the shape of the output."
-        
+        message = "Successful simulation"
+        assert output.shape == (
+        noise.shape[0], 4), "Shape error, it must be (noise.shape[0], 4). Please verify the shape of the output."
+
         # write the output
         np.save("output.npy", output)
 
     except Exception as e:
         message = e
-                
+
     finally:
         logging.debug(message)
 
     return output
 
-    
+
 if __name__ == "__main__":
+    SCENARIO_NUMBER = 1  # <- PICK A SCENARIO NUMBER BETWEEN 1 AND 9
     noise = np.load("data/noise.npy")
-    simulate(noise)
-    
-    
+    scenario = np.zeros((noise.shape[0], 9))  # create a vector of zeros with shape (n_samples, 9)
+    scenario[:, SCENARIO_NUMBER - 1] = 1
+    simulate(noise, scenario)
+
