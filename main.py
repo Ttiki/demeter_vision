@@ -47,3 +47,5 @@ if __name__ == "__main__":
     noise = np.load("data/noise.npy")
     simulate(noise)
 #%%
+
+#%%

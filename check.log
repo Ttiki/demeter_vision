@@ -1,4 +1,4 @@
-2024-02-07 14:06:44,009:DEBUG: Data cardinality is ambiguous:
+2024-02-07 15:28:06,558:DEBUG: Data cardinality is ambiguous:
   x sizes: 64
   y sizes: 37980
 Make sure all arrays contain the same number of samples.

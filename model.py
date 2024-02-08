@@ -73,7 +73,6 @@ def generative_model(noise):
     generator = build_generator(input_dim)
     discriminator = build_discriminator(input_dim)
     gan_model = build_gan(generator, discriminator, input_dim)
-    noise = np.random.normal(0, 1, (batch_size, input_dim))
     generated_samples = train_gan_with_datasets(generator, discriminator, gan_model, input_dim, num_epochs, batch_size)
     viz.visualize_generated_data(generated_samples)
     return generated_samples
