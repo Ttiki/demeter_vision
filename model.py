@@ -15,6 +15,10 @@ from jax import jit, value_and_grad, random
 from jax.example_libraries import stax, optimizers
 from jax.example_libraries.stax import Dense, Relu, Sigmoid
 
+from parameters.VAE import input_dim, learning_rate, opt_update, latent_dim, get_params, decoder_fn, fast_sample, \
+    encoder_fn, data_size
+
+
 def create_scenarios():
     # Define temperature and rainfall classes
     CT = {'T1': (-float('inf'), 21.2), 'T2': (21.2, 22), 'T3': (22, float('inf'))}
