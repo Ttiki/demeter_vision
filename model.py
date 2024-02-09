@@ -15,9 +15,6 @@ from jax import jit, value_and_grad, random
 from jax.example_libraries import stax, optimizers
 from jax.example_libraries.stax import Dense, Relu, Sigmoid
 
-from parameters.VAE import input_dim, learning_rate, opt_update, latent_dim, get_params, decoder_fn, fast_sample, \
-    encoder_fn, data_size
-
 
 def create_scenarios():
     # Define temperature and rainfall classes
@@ -109,6 +106,67 @@ def build_vae_model(latent_dim, input_dim, hidden_dim):
     encoder_init, encoder_fn = stax.serial(Dense(hidden_dim), Relu, Dense(latent_dim * 2))
     decoder_init, decoder_fn = stax.serial(Dense(hidden_dim), Relu, Dense(input_dim), Sigmoid)
     return encoder_init, encoder_fn, decoder_init, decoder_fn
+
+@jit
+def encoder_fn(params, x):
+    """
+    Encoder function
+
+    Parameters:
+    - params: Tuple of parameters for the encoder
+    - x: Input data
+
+    Returns:
+    - Output of the encoder
+    """
+    # Example implementation (you may need to adjust based on your actual model)
+    hidden_layer = jnp.dot(x, params[0]) + params[1]
+    activation = jnp.tanh(hidden_layer)
+    output = jnp.dot(activation, params[2]) + params[3]
+
+    return output
+
+@jit
+def fast_sample(rand_key, z_mean, z_log_var):
+    """
+    Fast sampling from the latent space using the reparameterization trick.
+
+    Parameters:
+    - rand_key: Random key for JAX's random module
+    - z_mean: Mean of the latent space
+    - z_log_var: Logarithm of the variance of the latent space
+
+    Returns:
+    - Sampled latent vector
+    """
+    # Use the reparameterization trick for sampling
+    epsilon = random.normal(rand_key, shape=z_mean.shape)
+    z_sample = z_mean + jnp.exp(0.5 * z_log_var) * epsilon
+
+    return z_sample
+
+@jit
+def decoder_fn(params, z_sample):
+    """
+    Decoder function to generate samples from the latent space.
+
+    Parameters:
+    - params: Decoder parameters
+    - z_sample: Sampled latent vector
+
+    Returns:
+    - Generated samples
+    """
+    # Your decoder architecture goes here
+    # Example: a simple feedforward neural network
+    for w, b in params:
+        z_sample = jnp.dot(z_sample, w) + b
+        z_sample = jnp.relu(z_sample)
+
+    # Output layer (adjust based on your specific output requirements)
+    output = jnp.sigmoid(z_sample)
+
+    return output
 
 # Calculate VAE loss
 @jit

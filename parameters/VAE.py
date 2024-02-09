@@ -1,6 +1,6 @@
 ##############################################
 # Goal : return training parameters
-# For that we will have to define our loss function, specify number of epochs, batch size, 
+# For that we will have to define our loss function, specify number of epochs, batch size,
 #latent dimension although this could be included in model.py as implied in the indication provided
 #-in the model.py provided code, and lastly the numnber of neurons for the generator and the number of neurons
 #-for the discriminator
@@ -24,35 +24,6 @@ from jax.example_libraries.stax import Dense, Relu, Sigmoid, Elu, Tanh, LeakyRel
 
 
 
-
-
-
-
-
-
-
-
-
-correlation_matrix = np.corrcoef(filtered_features, rowvar=False)
-
-# correlation among correlated features after dropping very correlated features
-correlation_graph=[]
-for i in range(2,10) :
-    correlation_graph.append((np.sum(~np.array([(correlation_matrix <= i/10)]))))
-bars=plt.bar(x=np.array(range(2,10))/10,height=correlation_graph,width=.05)
-for bar, label in zip(bars, correlation_graph):
-    height = bar.get_height()
-    plt.text(bar.get_x() + bar.get_width()/2, height, f'{label:.2f}', ha='center', va='bottom')
-
-plt.title('Bar Plot with Pods and Labels')
-plt.xlabel('X-axis')
-plt.ylabel('Correlation Values')
-plt.show()
-
-
-scaler = StandardScaler()
-scaled_filtered_features = scaler.fit_transform(filtered_features)
-
 #VAE JAX
 #---------------------------
 #Building the encoder :
@@ -68,31 +39,14 @@ rand_key = k1
 
 #use k2
 random.normal(k2, shape=(2,3))
-# Assuming filtered_features and targets are your original data
-x_train, x_test= train_test_split(scaled_filtered_features, test_size=0.2, random_state=42)
-plt.plot(x_test)
-plt.show()
-# Reshape the arrays
-x_train_standard = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
-x_test_standard = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
-
-
-
-
-input_dim = x_train_standard.shape[1]
 hidden_dim = 51
 latent_dim = 50
 
-encoder_init, encoder_fn = stax.serial(
-    Dense(hidden_dim), Relu, Dense(latent_dim * 2))
 
-#initialize the parameters
-rand_key, key = random.split(rand_key)
-out_shape, params_enc = encoder_init(rand_key, (-1, input_dim))
 
 print("Parameters: (W,b) of first Dense, Relu, (W,b) of second Dense: ")
 print([[p.shape for p in param] for param in params_enc])
-      
+
 #Reparanetrization trick
 def sample(rand_key, z_mean, z_log_var):
     epsilon = random.normal(rand_key, shape=z_mean.shape)
