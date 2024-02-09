@@ -6,6 +6,8 @@
 #-for the discriminator
 ################################################
 import os
+
+import jax
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -188,105 +190,4 @@ def update(key, batch, opt_state):
     print(value_and_grad_fun(params, x_train_standard)[0])
     return opt_state, loss
 
-for epochs in range(EPOCHS):
-    # Shuffle the dataset
-    rand_key, key = random.split(rand_key)
-    permutation = random.permutation(key, data_size)
-    for i in range(data_size // 64 - 1):
-        
-        batch = x_train_standard[permutation[i * 32:(i+1)*32]]
-        rand_key, key = random.split(rand_key)
-        opt_state, loss = update(key, batch, opt_state)
-        losses.append(loss)
 
-
-import matplotlib.pyplot as plt
-plt.plot(losses);
-plt.show()
-
-
-#Generate try
-rand_key, key = random.split(key)
-params = get_params(opt_state)
-params_dec = params[3:]
-z = random.normal(key, shape=(1,latent_dim))
-jit_decoder_fn = jit(decoder_fn)  # Apply jit to decoder_fn
-generated = jit_decoder_fn(params_dec, z)  # Call the jitted function
-print(generated[0,-4:])
-print(x_train_standard[0,-4:])
-
-generated_yields = generated
-training_yields = x_train_standard
-
-print(generated_yields[0,-4:])
-print(training_yields[0,-4:])
-for i in range(50):    
-    if features.iloc[i,-4] ==9.62 :
-         print(features.iloc[i,-4:])
-
-
-
-#Generate 
-rand_key, key = random.split(key)
-params = get_params(opt_state)
-params_dec = params[3:]
-z = random.normal(key, shape=(x_test_standard.shape[0],latent_dim))
-z=noise_elhcs[:x_test_standard.shape[0],:latent_dim]
-jit_decoder_fn = jit(decoder_fn)  # Apply jit to decoder_fn
-generated = jit_decoder_fn(params_dec, z)  # Call the jitted function
-
-generated_yields = generated
-testing_data=x_test_standard
-testing_data=1 / (1 + jnp.exp(-testing_data))
-
-testing_data=np.array(testing_data)
-generated_yields_numpy = np.array(generated_yields)
-print(sliced_wasserstein_distance(generated_yields_numpy,testing_data))
-
-unscaled_testing_data=scaler.inverse_transform(testing_data)
-unscaled_generated_yields=scaler.inverse_transform(generated_yields)
-print(sliced_wasserstein_distance(unscaled_generated_yields,unscaled_testing_data))
-unscaled_testing_data= expit(unscaled_testing_data)
-unscaled_generated_yields= expit(unscaled_generated_yields)
-print(sliced_wasserstein_distance(unscaled_generated_yields,unscaled_testing_data))
-# Create subplots
-fig, (ax1, ax2,ax3,ax4) = plt.subplots(4, 1, figsize=(10, 8))
-
-# Plot on the first subplot
-ax1.plot(generated_yields[:, -4:])
-ax1.set_title('Generated Yields')
-
-# Plot on the second subplot
-
-ax2.plot(testing_data[:, -4:])
-ax2.set_title('Testing Data')
-# Plot on the first subplot
-ax3.plot(generated_yields[:, :-4])
-ax3.set_title('Generated Yields')
-
-# Plot on the second subplot
-ax4.plot(testing_data[:, :-4])
-ax4.set_title('Testing Data')
-
-# Adjust layout for better spacing
-plt.tight_layout()
-
-# Show the plots
-plt.show()
-
-print("Any NaN values in x_train_standard:", np.any(np.isnan(x_train_standard)))
-print("Any infinite values in x_train_standard:", np.any(np.isinf(x_train_standard)))
-print("Any NaN values in x_train_standard:", np.any(np.isnan(x_train)))
-
-
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
-
-# Plot on the first subplot
-ax1.plot(unscaled_generated_yields[:, -4:])
-ax1.set_title('Generated Yields')
-
-# Plot on the second subplot
-
-ax2.plot(unscaled_testing_data[:, -4:])
-ax2.set_title('Testing Data')
-plt.show()
