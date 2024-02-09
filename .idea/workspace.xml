@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76d06ac6-6873-400c-86b9-54d738964b35" name="Changes" comment="Init commit (using elhcs's last submission as base)">
-      <change afterPath="$PROJECT_DIR$/.idea/demeter_vision.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataviz.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genhack_data_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="76d06ac6-6873-400c-86b9-54d738964b35" name="Changes" comment="Base template">
+      <change afterPath="$PROJECT_DIR$/scenarios.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genhack_data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/genhack_data_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parameters/VAEpy" beforeDir="false" afterPath="$PROJECT_DIR$/parameters/VAE.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,6 +67,7 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Docker.Docker.executor": "Run",
     "Python.VAE.executor": "Run",
+    "Python.genhack_data_manager.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -87,6 +82,29 @@
   }
 }]]></component>
   <component name="RunManager" selected="Docker.Docker">
+    <configuration name="genhack_data_manager" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="demeter_vision" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/genhack_data_manager.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="demeter_vision" />
       <option name="ENV_FILES" value="" />
@@ -121,6 +139,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.genhack_data_manager" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
@@ -143,7 +162,9 @@
       <workItem from="1707396592675" duration="67000" />
       <workItem from="1707396663833" duration="238000" />
       <workItem from="1707396907110" duration="8405000" />
-      <workItem from="1707405845103" duration="1000000" />
+      <workItem from="1707405845103" duration="1127000" />
+      <workItem from="1707469721311" duration="627000" />
+      <workItem from="1707472490107" duration="4429000" />
     </task>
     <task id="LOCAL-00001" summary="Array size error">
       <option name="closed" value="true" />
@@ -161,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707397603330</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Base template">
+      <option name="closed" value="true" />
+      <created>1707407034501</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1707407034501</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,10 +224,12 @@
     <MESSAGE value="Still got problems with my dims" />
     <MESSAGE value="Array size error" />
     <MESSAGE value="Init commit (using elhcs's last submission as base)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Init commit (using elhcs's last submission as base)" />
+    <MESSAGE value="Base template" />
+    <option name="LAST_COMMIT_MESSAGE" value="Base template" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/demeter_vision$VAE.coverage" NAME="VAE Coverage Results" MODIFIED="1707398663851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/parameters" />
+    <SUITE FILE_PATH="coverage/demeter_vision$genhack_data_manager.coverage" NAME="genhack_data_manager Coverage Results" MODIFIED="1707477986021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/demeter_vision$main.coverage" NAME="main Coverage Results" MODIFIED="1707398359781" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

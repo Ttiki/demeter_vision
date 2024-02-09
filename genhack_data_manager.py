@@ -34,7 +34,8 @@ def load_and_preprocess_data():
     station_80_yield = station_80.iloc[:, -1]
 
     # Combine data from all stations
-    combined_data_features = pd.concat([station_40_features, station_49_features, station_63_features, station_80_features], axis=1)
+    combined_data_features = pd.concat(
+        [station_40_features, station_49_features, station_63_features, station_80_features], axis=1)
     combined_data_yield = pd.concat([station_40_yield, station_49_yield, station_63_yield, station_80_yield], axis=1)
     return pd.concat([combined_data_features, combined_data_yield], axis=1)
 
@@ -49,9 +50,9 @@ def remove_highly_correlated_features(features):
     to_delete = [item for sublist in unique_correlated_features for item in sublist]
     return features.drop(features.columns[to_delete], axis=1)
 
+
 # Standardize data using StandardScaler
 def standardize_data(features):
-
     # Standardize data using StandardScaler
     scaler = StandardScaler()
     return scaler.fit_transform(features)
@@ -61,10 +62,5 @@ def standardize_data(features):
 def split_data(features, targets):
     # Split data into training and testing sets
     x_train, x_test, y_train, y_test = train_test_split(features, targets, test_size=0.2, random_state=42)
-
-    # If you want to overwrite the global 'features' and 'targets' variables
-    # uncomment the following lines
-    # global features, targets
-    # features, targets = x_train, y_train
 
     return x_train, x_test, y_train, y_test

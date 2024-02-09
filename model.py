@@ -19,11 +19,12 @@ from jax.example_libraries import stax, optimizers
 from jax.example_libraries.stax import Dense, Relu, Sigmoid
 from scipy.optimize import fsolve
 
-from genhack_data_manager import load_and_preprocess_data, remove_highly_correlated_features, standardize_data, split_data
+from genhack_data_manager import load_and_preprocess_data, remove_highly_correlated_features, standardize_data, \
+    split_data
 from dataviz import visualize_correlation
 from parameters.VAE import get_params, latent_dim, decoder_fn, data_size, learning_rate, input_dim, opt_update, \
     fast_sample, encoder_fn
-
+from scenarios import create_scenarios
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
@@ -125,14 +126,58 @@ def train_vae_model(x_train_standard, encoder_init, encoder_fn, decoder_init, de
     return opt_state, get_params(opt_state), decoder_fn
 
 
-def generate_samples(key, opt_state, params_dec, num_samples=50):
-    # Generate samples using the trained VAE model
-    rand_key, key = random.split(key)
-    z = random.normal(key, shape=(num_samples, latent_dim))
-    jit_decoder_fn = jit(decoder_fn)
-    generated = jit_decoder_fn(params_dec, z)
-    return generated
+def generate_samples(opt_state, params_dec, noise, scenario_label, num_samples=50):
+    """
+    Generate samples using the trained VAE model
 
+    Parameters
+    ----------
+    opt_state : tuple
+        Optimizer state
+    params_dec : tuple
+        Decoder parameters
+    noise : ndarray with shape (num_samples, latent_dim)
+        Random noise vector
+    scenario_label : ndarray with shape (num_samples, scenario_dim)
+        Scenario label
+    num_samples : int, optional
+        Number of samples to generate, by default 50
+
+    Returns
+    -------
+    generated_samples : ndarray
+        Generated samples
+    """
+    # Concatenate noise vector with the scenario label
+    input_vector = jnp.concatenate([noise, scenario_label], axis=-1)
+
+    # Use the generator to produce samples
+    generated_samples = generator(params_dec, input_vector)
+
+    return generated_samples
+
+
+def generator(params_dec, noise_and_label):
+    """
+    Generator model
+
+    Parameters
+    ----------
+    params_dec : tuple
+        Decoder parameters
+    noise_and_label: ndarray with shape (n_samples, n_dim=54)
+        Input noise and scenario label of the conditional generative model
+    """
+    # Extract noise and scenario label
+    noise, scenario_label = jnp.split(noise_and_label, [-1])
+
+    # Concatenate noise vector with the scenario label
+    input_vector = jnp.concatenate([noise, scenario_label], axis=-1)
+
+    # Use the decoder to produce generated samples
+    generated_samples = decoder_fn(params_dec, input_vector)
+
+    return generated_samples
 
 
 # <!> DO NOT ADD ANY OTHER ARGUMENTS <!>
@@ -142,10 +187,15 @@ def generative_model(noise, scenario):
 
     Parameters
     ----------
-    noise : ndarray with shape (n_samples, n_dim=4)
-        input noise of the generative model
-    scenario: ndarray with shape (n_samples, n_scenarios=9)
-        input categorical variable of the conditional generative model
+    noise : ndarray with shape (num_samples, latent_dim)
+        Random noise vector
+    scenario : ndarray with shape (num_samples, scenario_dim)
+        Scenario label
+
+    Returns
+    -------
+    generated_samples : ndarray
+        Generated samples
     """
     global features, X_train, X_test, y_train, y_test, opt_state, params_dec
 
@@ -161,11 +211,17 @@ def generative_model(noise, scenario):
     # Standardize data using StandardScaler
     features = standardize_data(features)
 
+    # Call the function to get the scenarios and labels
+    scenarios_and_labels = create_scenarios()
+
+    # Display the scenarios and their labels
+    for label, scenario in scenarios_and_labels.items():
+        print(f"{label}: {scenario}")
+
     # Split data into training and testing sets
     X_train, X_test, y_train, y_test = split_data(features, features['YIELD'])
 
     # Train the VAE model
-    # latent_dim, input_dim, hidden_dim are your desired dimensions
     latent_dim = 50
     input_dim = X_train.shape[1]
     hidden_dim = 51
@@ -175,4 +231,11 @@ def generative_model(noise, scenario):
 
     # Train the VAE model
     opt_state, params_enc, params_dec = train_vae_model(X_train, encoder_init, encoder_fn, decoder_init, decoder_fn)
-    return generate_samples(opt_state, params_dec)
+
+    # Concatenate noise vector with the scenario label
+    input_vector = jnp.concatenate([noise, scenario], axis=-1)
+
+    # Generate samples for the given noise and scenario
+    generated_samples = generate_samples(opt_state, params_dec, noise, scenario)
+
+    return generated_samples
