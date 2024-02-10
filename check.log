@@ -1,305 +1,342 @@
-2024-02-10 22:47:13,050:DEBUG: Finished tracing + transforming jit(convert_element_type) in 0.0016798973083496094 sec
-2024-02-10 22:47:13,063:DEBUG: No jax_plugins namespace packages available
-2024-02-10 22:47:13,077:DEBUG: Initializing backend 'cpu'
-2024-02-10 22:47:13,078:DEBUG: Backend 'cpu' initialized
-2024-02-10 22:47:13,078:DEBUG: Initializing backend 'cuda'
-2024-02-10 22:47:13,078:INFO: Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
-2024-02-10 22:47:13,079:DEBUG: Initializing backend 'rocm'
-2024-02-10 22:47:13,079:INFO: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
-2024-02-10 22:47:13,079:DEBUG: Initializing backend 'tpu'
-2024-02-10 22:47:13,080:INFO: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
-2024-02-10 22:47:13,081:DEBUG: Compiling convert_element_type for with global shapes and types [ShapedArray(int32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,085:DEBUG: Finished jaxpr to MLIR module conversion jit(convert_element_type) in 0.004434823989868164 sec
-2024-02-10 22:47:13,086:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,086:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,098:DEBUG: Finished XLA compilation of jit(convert_element_type) in 0.011114835739135742 sec
-2024-02-10 22:47:13,102:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0006551742553710938 sec
-2024-02-10 22:47:13,103:DEBUG: Finished tracing + transforming _threefry_seed for pjit in 0.002665996551513672 sec
-2024-02-10 22:47:13,103:DEBUG: Compiling _threefry_seed for with global shapes and types [ShapedArray(int32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,107:DEBUG: Finished jaxpr to MLIR module conversion jit(_threefry_seed) in 0.0029020309448242188 sec
-2024-02-10 22:47:13,107:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,107:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,112:DEBUG: Finished XLA compilation of jit(_threefry_seed) in 0.005282163619995117 sec
-2024-02-10 22:47:13,115:DEBUG: Finished tracing + transforming ravel for pjit in 0.00024700164794921875 sec
-2024-02-10 22:47:13,116:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0018379688262939453 sec
-2024-02-10 22:47:13,117:DEBUG: Finished tracing + transforming _threefry_split_original for pjit in 0.0033087730407714844 sec
-2024-02-10 22:47:13,119:DEBUG: Finished tracing + transforming _threefry_split for pjit in 0.004809141159057617 sec
-2024-02-10 22:47:13,119:DEBUG: Compiling _threefry_split for with global shapes and types [ShapedArray(uint32[2])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,121:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003910064697265625 sec
-2024-02-10 22:47:13,123:DEBUG: Finished tracing + transforming fn for pjit in 0.00047898292541503906 sec
-2024-02-10 22:47:13,124:DEBUG: Finished tracing + transforming fn for pjit in 0.00041794776916503906 sec
-2024-02-10 22:47:13,125:DEBUG: Finished tracing + transforming fn for pjit in 0.0003859996795654297 sec
-2024-02-10 22:47:13,126:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00039696693420410156 sec
-2024-02-10 22:47:13,127:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0004050731658935547 sec
-2024-02-10 22:47:13,128:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00037479400634765625 sec
-2024-02-10 22:47:13,138:DEBUG: Finished tracing + transforming fn for pjit in 0.000537872314453125 sec
-2024-02-10 22:47:13,148:DEBUG: Finished jaxpr to MLIR module conversion jit(_threefry_split) in 0.028310060501098633 sec
-2024-02-10 22:47:13,148:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,148:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,167:DEBUG: Finished XLA compilation of jit(_threefry_split) in 0.019318103790283203 sec
-2024-02-10 22:47:13,169:DEBUG: Finished tracing + transforming _unstack for pjit in 0.0005669593811035156 sec
-2024-02-10 22:47:13,169:DEBUG: Compiling _unstack for with global shapes and types [ShapedArray(uint32[2,2])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,171:DEBUG: Finished jaxpr to MLIR module conversion jit(_unstack) in 0.0014379024505615234 sec
-2024-02-10 22:47:13,171:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,172:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,176:DEBUG: Finished XLA compilation of jit(_unstack) in 0.004428863525390625 sec
-2024-02-10 22:47:13,177:DEBUG: Finished tracing + transforming jit(convert_element_type) in 0.00020503997802734375 sec
-2024-02-10 22:47:13,177:DEBUG: Compiling convert_element_type for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,178:DEBUG: Finished jaxpr to MLIR module conversion jit(convert_element_type) in 0.0006899833679199219 sec
-2024-02-10 22:47:13,178:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,178:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,181:DEBUG: Finished XLA compilation of jit(convert_element_type) in 0.0025691986083984375 sec
-2024-02-10 22:47:13,182:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003170967102050781 sec
-2024-02-10 22:47:13,182:DEBUG: Compiling <lambda> for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,183:DEBUG: Finished jaxpr to MLIR module conversion jit(<lambda>) in 0.0007531642913818359 sec
-2024-02-10 22:47:13,183:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,183:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,186:DEBUG: Finished XLA compilation of jit(<lambda>) in 0.0025339126586914062 sec
-2024-02-10 22:47:13,187:DEBUG: Finished tracing + transforming true_divide for pjit in 0.00048613548278808594 sec
-2024-02-10 22:47:13,188:DEBUG: Compiling true_divide for with global shapes and types [ShapedArray(float32[]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,188:DEBUG: Finished jaxpr to MLIR module conversion jit(true_divide) in 0.0007941722869873047 sec
-2024-02-10 22:47:13,189:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,189:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,191:DEBUG: Finished XLA compilation of jit(true_divide) in 0.0024950504302978516 sec
-2024-02-10 22:47:13,195:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0004410743713378906 sec
-2024-02-10 22:47:13,196:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00041985511779785156 sec
-2024-02-10 22:47:13,196:DEBUG: Finished tracing + transforming fn for pjit in 0.00041484832763671875 sec
-2024-02-10 22:47:13,197:DEBUG: Finished tracing + transforming fn for pjit in 0.0004050731658935547 sec
-2024-02-10 22:47:13,198:DEBUG: Finished tracing + transforming _uniform for pjit in 0.004786014556884766 sec
-2024-02-10 22:47:13,199:DEBUG: Finished tracing + transforming fn for pjit in 0.0003578662872314453 sec
-2024-02-10 22:47:13,200:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0004017353057861328 sec
-2024-02-10 22:47:13,201:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003502368927001953 sec
-2024-02-10 22:47:13,201:DEBUG: Finished tracing + transforming clip for pjit in 0.0017778873443603516 sec
-2024-02-10 22:47:13,202:DEBUG: Finished tracing + transforming _truncated_normal for pjit in 0.009946107864379883 sec
-2024-02-10 22:47:13,203:DEBUG: Compiling _truncated_normal for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,208:DEBUG: Finished tracing + transforming ravel for pjit in 0.0001728534698486328 sec
-2024-02-10 22:47:13,209:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0015950202941894531 sec
-2024-02-10 22:47:13,210:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.0033118724822998047 sec
-2024-02-10 22:47:13,213:DEBUG: Finished tracing + transforming fn for pjit in 0.0004191398620605469 sec
-2024-02-10 22:47:13,215:DEBUG: Finished tracing + transforming fn for pjit in 0.00037980079650878906 sec
-2024-02-10 22:47:13,216:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00034618377685546875 sec
-2024-02-10 22:47:13,217:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00034880638122558594 sec
-2024-02-10 22:47:13,240:DEBUG: Finished jaxpr to MLIR module conversion jit(_truncated_normal) in 0.03641390800476074 sec
-2024-02-10 22:47:13,240:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,240:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,307:DEBUG: Finished XLA compilation of jit(_truncated_normal) in 0.06635379791259766 sec
-2024-02-10 22:47:13,309:DEBUG: Finished tracing + transforming fn for pjit in 0.0004658699035644531 sec
-2024-02-10 22:47:13,310:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[8000,51]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,311:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0011031627655029297 sec
-2024-02-10 22:47:13,312:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,312:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,319:DEBUG: Finished XLA compilation of jit(fn) in 0.007281064987182617 sec
-2024-02-10 22:47:13,324:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0005471706390380859 sec
-2024-02-10 22:47:13,326:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0010790824890136719 sec
-2024-02-10 22:47:13,327:DEBUG: Finished tracing + transforming fn for pjit in 0.0004830360412597656 sec
-2024-02-10 22:47:13,328:DEBUG: Finished tracing + transforming fn for pjit in 0.0004730224609375 sec
-2024-02-10 22:47:13,329:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0059719085693359375 sec
-2024-02-10 22:47:13,330:DEBUG: Finished tracing + transforming _normal_real for pjit in 0.007208824157714844 sec
-2024-02-10 22:47:13,330:DEBUG: Finished tracing + transforming _normal for pjit in 0.00789785385131836 sec
-2024-02-10 22:47:13,331:DEBUG: Compiling _normal for with global shapes and types [ShapedArray(key<fry>[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,335:DEBUG: Finished tracing + transforming ravel for pjit in 0.00017499923706054688 sec
-2024-02-10 22:47:13,336:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.001850128173828125 sec
-2024-02-10 22:47:13,337:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.003340005874633789 sec
-2024-02-10 22:47:13,340:DEBUG: Finished tracing + transforming fn for pjit in 0.0003819465637207031 sec
-2024-02-10 22:47:13,342:DEBUG: Finished tracing + transforming fn for pjit in 0.000392913818359375 sec
-2024-02-10 22:47:13,343:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0004010200500488281 sec
-2024-02-10 22:47:13,344:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00034689903259277344 sec
-2024-02-10 22:47:13,364:DEBUG: Finished jaxpr to MLIR module conversion jit(_normal) in 0.03283882141113281 sec
-2024-02-10 22:47:13,364:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,364:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,397:DEBUG: Finished XLA compilation of jit(_normal) in 0.03203701972961426 sec
-2024-02-10 22:47:13,398:DEBUG: Finished tracing + transforming fn for pjit in 0.0004820823669433594 sec
-2024-02-10 22:47:13,398:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[51]), ShapedArray(float32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,399:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0010879039764404297 sec
-2024-02-10 22:47:13,400:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,400:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,403:DEBUG: Finished XLA compilation of jit(fn) in 0.003706216812133789 sec
-2024-02-10 22:47:13,407:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.000438690185546875 sec
-2024-02-10 22:47:13,408:DEBUG: Finished tracing + transforming fn for pjit in 0.00035691261291503906 sec
-2024-02-10 22:47:13,409:DEBUG: Finished tracing + transforming fn for pjit in 0.000370025634765625 sec
-2024-02-10 22:47:13,409:DEBUG: Finished tracing + transforming _uniform for pjit in 0.003520965576171875 sec
-2024-02-10 22:47:13,410:DEBUG: Finished tracing + transforming fn for pjit in 0.00034618377685546875 sec
-2024-02-10 22:47:13,411:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003559589385986328 sec
-2024-02-10 22:47:13,412:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00034308433532714844 sec
-2024-02-10 22:47:13,413:DEBUG: Finished tracing + transforming clip for pjit in 0.0016913414001464844 sec
-2024-02-10 22:47:13,413:DEBUG: Finished tracing + transforming _truncated_normal for pjit in 0.00840616226196289 sec
-2024-02-10 22:47:13,414:DEBUG: Compiling _truncated_normal for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,417:DEBUG: Finished tracing + transforming ravel for pjit in 0.00016498565673828125 sec
-2024-02-10 22:47:13,418:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.001421213150024414 sec
-2024-02-10 22:47:13,419:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.0027298927307128906 sec
-2024-02-10 22:47:13,422:DEBUG: Finished tracing + transforming fn for pjit in 0.0003612041473388672 sec
-2024-02-10 22:47:13,424:DEBUG: Finished tracing + transforming fn for pjit in 0.00037026405334472656 sec
-2024-02-10 22:47:13,425:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003399848937988281 sec
-2024-02-10 22:47:13,426:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00039386749267578125 sec
-2024-02-10 22:47:13,445:DEBUG: Finished jaxpr to MLIR module conversion jit(_truncated_normal) in 0.030451059341430664 sec
-2024-02-10 22:47:13,445:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,445:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,498:DEBUG: Finished XLA compilation of jit(_truncated_normal) in 0.053195953369140625 sec
-2024-02-10 22:47:13,500:DEBUG: Finished tracing + transforming fn for pjit in 0.00043582916259765625 sec
-2024-02-10 22:47:13,500:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[51,100]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,501:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0009348392486572266 sec
-2024-02-10 22:47:13,501:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,502:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,505:DEBUG: Finished XLA compilation of jit(fn) in 0.00390625 sec
-2024-02-10 22:47:13,508:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00043702125549316406 sec
-2024-02-10 22:47:13,509:DEBUG: Finished tracing + transforming fn for pjit in 0.00036406517028808594 sec
-2024-02-10 22:47:13,510:DEBUG: Finished tracing + transforming fn for pjit in 0.00035119056701660156 sec
-2024-02-10 22:47:13,510:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0035479068756103516 sec
-2024-02-10 22:47:13,511:DEBUG: Finished tracing + transforming _normal_real for pjit in 0.0044689178466796875 sec
-2024-02-10 22:47:13,511:DEBUG: Finished tracing + transforming _normal for pjit in 0.004986763000488281 sec
-2024-02-10 22:47:13,512:DEBUG: Compiling _normal for with global shapes and types [ShapedArray(key<fry>[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,515:DEBUG: Finished tracing + transforming ravel for pjit in 0.00016808509826660156 sec
-2024-02-10 22:47:13,515:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0014259815216064453 sec
-2024-02-10 22:47:13,516:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.0027070045471191406 sec
-2024-02-10 22:47:13,519:DEBUG: Finished tracing + transforming fn for pjit in 0.0003578662872314453 sec
-2024-02-10 22:47:13,521:DEBUG: Finished tracing + transforming fn for pjit in 0.0003731250762939453 sec
-2024-02-10 22:47:13,522:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003383159637451172 sec
-2024-02-10 22:47:13,523:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003368854522705078 sec
-2024-02-10 22:47:13,541:DEBUG: Finished jaxpr to MLIR module conversion jit(_normal) in 0.028871774673461914 sec
-2024-02-10 22:47:13,541:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,541:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,571:DEBUG: Finished XLA compilation of jit(_normal) in 0.029756784439086914 sec
-2024-02-10 22:47:13,572:DEBUG: Finished tracing + transforming fn for pjit in 0.00045990943908691406 sec
-2024-02-10 22:47:13,573:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[100]), ShapedArray(float32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,574:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0009088516235351562 sec
-2024-02-10 22:47:13,574:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,574:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,577:DEBUG: Finished XLA compilation of jit(fn) in 0.003298044204711914 sec
-2024-02-10 22:47:13,581:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00042891502380371094 sec
-2024-02-10 22:47:13,582:DEBUG: Finished tracing + transforming fn for pjit in 0.00036787986755371094 sec
-2024-02-10 22:47:13,582:DEBUG: Finished tracing + transforming fn for pjit in 0.0003578662872314453 sec
-2024-02-10 22:47:13,583:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0035228729248046875 sec
-2024-02-10 22:47:13,584:DEBUG: Finished tracing + transforming fn for pjit in 0.0003459453582763672 sec
-2024-02-10 22:47:13,585:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003478527069091797 sec
-2024-02-10 22:47:13,586:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003421306610107422 sec
-2024-02-10 22:47:13,586:DEBUG: Finished tracing + transforming clip for pjit in 0.001680135726928711 sec
-2024-02-10 22:47:13,587:DEBUG: Finished tracing + transforming _truncated_normal for pjit in 0.008357763290405273 sec
-2024-02-10 22:47:13,588:DEBUG: Compiling _truncated_normal for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,591:DEBUG: Finished tracing + transforming ravel for pjit in 0.00017023086547851562 sec
-2024-02-10 22:47:13,592:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0014281272888183594 sec
-2024-02-10 22:47:13,593:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.0026798248291015625 sec
-2024-02-10 22:47:13,596:DEBUG: Finished tracing + transforming fn for pjit in 0.0003578662872314453 sec
-2024-02-10 22:47:13,598:DEBUG: Finished tracing + transforming fn for pjit in 0.0003650188446044922 sec
-2024-02-10 22:47:13,599:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00033783912658691406 sec
-2024-02-10 22:47:13,600:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003833770751953125 sec
-2024-02-10 22:47:13,620:DEBUG: Finished jaxpr to MLIR module conversion jit(_truncated_normal) in 0.03175091743469238 sec
-2024-02-10 22:47:13,620:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,620:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,661:DEBUG: Finished XLA compilation of jit(_truncated_normal) in 0.04114580154418945 sec
-2024-02-10 22:47:13,662:DEBUG: Finished tracing + transforming fn for pjit in 0.0004467964172363281 sec
-2024-02-10 22:47:13,663:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[50,51]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,664:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0009849071502685547 sec
-2024-02-10 22:47:13,664:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,664:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,669:DEBUG: Finished XLA compilation of jit(fn) in 0.004291057586669922 sec
-2024-02-10 22:47:13,672:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0004489421844482422 sec
-2024-02-10 22:47:13,673:DEBUG: Finished tracing + transforming fn for pjit in 0.00036406517028808594 sec
-2024-02-10 22:47:13,674:DEBUG: Finished tracing + transforming fn for pjit in 0.0003609657287597656 sec
-2024-02-10 22:47:13,675:DEBUG: Finished tracing + transforming _uniform for pjit in 0.003587961196899414 sec
-2024-02-10 22:47:13,676:DEBUG: Finished tracing + transforming fn for pjit in 0.00034809112548828125 sec
-2024-02-10 22:47:13,677:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00034809112548828125 sec
-2024-02-10 22:47:13,678:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003409385681152344 sec
-2024-02-10 22:47:13,678:DEBUG: Finished tracing + transforming clip for pjit in 0.001664876937866211 sec
-2024-02-10 22:47:13,678:DEBUG: Finished tracing + transforming _truncated_normal for pjit in 0.008456945419311523 sec
-2024-02-10 22:47:13,680:DEBUG: Compiling _truncated_normal for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,683:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.0011060237884521484 sec
-2024-02-10 22:47:13,698:DEBUG: Finished jaxpr to MLIR module conversion jit(_truncated_normal) in 0.018362998962402344 sec
-2024-02-10 22:47:13,698:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,698:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,755:DEBUG: Finished XLA compilation of jit(_truncated_normal) in 0.05701398849487305 sec
-2024-02-10 22:47:13,758:DEBUG: Finished tracing + transforming fn for pjit in 0.00043892860412597656 sec
-2024-02-10 22:47:13,759:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[51,8000]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,760:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0009431838989257812 sec
-2024-02-10 22:47:13,760:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,760:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,766:DEBUG: Finished XLA compilation of jit(fn) in 0.005792856216430664 sec
-2024-02-10 22:47:13,768:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0004227161407470703 sec
-2024-02-10 22:47:13,769:DEBUG: Finished tracing + transforming fn for pjit in 0.0003528594970703125 sec
-2024-02-10 22:47:13,770:DEBUG: Finished tracing + transforming fn for pjit in 0.0003490447998046875 sec
-2024-02-10 22:47:13,770:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0034859180450439453 sec
-2024-02-10 22:47:13,771:DEBUG: Finished tracing + transforming _normal_real for pjit in 0.004429817199707031 sec
-2024-02-10 22:47:13,771:DEBUG: Finished tracing + transforming _normal for pjit in 0.0049359798431396484 sec
-2024-02-10 22:47:13,772:DEBUG: Compiling _normal for with global shapes and types [ShapedArray(key<fry>[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,775:DEBUG: Finished tracing + transforming ravel for pjit in 0.0001652240753173828 sec
-2024-02-10 22:47:13,776:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0014841556549072266 sec
-2024-02-10 22:47:13,777:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.002679109573364258 sec
-2024-02-10 22:47:13,780:DEBUG: Finished tracing + transforming fn for pjit in 0.0003619194030761719 sec
-2024-02-10 22:47:13,781:DEBUG: Finished tracing + transforming fn for pjit in 0.0003650188446044922 sec
-2024-02-10 22:47:13,783:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0003390312194824219 sec
-2024-02-10 22:47:13,783:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00034809112548828125 sec
-2024-02-10 22:47:13,802:DEBUG: Finished jaxpr to MLIR module conversion jit(_normal) in 0.030037879943847656 sec
-2024-02-10 22:47:13,803:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,803:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,851:DEBUG: Finished XLA compilation of jit(_normal) in 0.04821181297302246 sec
-2024-02-10 22:47:13,852:DEBUG: Finished tracing + transforming fn for pjit in 0.0004899501800537109 sec
-2024-02-10 22:47:13,853:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[8000]), ShapedArray(float32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,854:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0010921955108642578 sec
-2024-02-10 22:47:13,854:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,854:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,858:DEBUG: Finished XLA compilation of jit(fn) in 0.00392603874206543 sec
-2024-02-10 22:47:13,859:DEBUG: Finished tracing + transforming jit(convert_element_type) in 0.0001971721649169922 sec
-2024-02-10 22:47:13,859:DEBUG: Compiling convert_element_type for with global shapes and types [ShapedArray(int32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,860:DEBUG: Finished jaxpr to MLIR module conversion jit(convert_element_type) in 0.0007760524749755859 sec
-2024-02-10 22:47:13,860:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,860:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,863:DEBUG: Finished XLA compilation of jit(convert_element_type) in 0.0023221969604492188 sec
-2024-02-10 22:47:13,864:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00019097328186035156 sec
-2024-02-10 22:47:13,864:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,865:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0007009506225585938 sec
-2024-02-10 22:47:13,865:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,865:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,869:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.003907203674316406 sec
-2024-02-10 22:47:13,870:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00020623207092285156 sec
-2024-02-10 22:47:13,871:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,871:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0007100105285644531 sec
-2024-02-10 22:47:13,872:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,872:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,875:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.003052949905395508 sec
-2024-02-10 22:47:13,876:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00019407272338867188 sec
-2024-02-10 22:47:13,876:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,877:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0006289482116699219 sec
-2024-02-10 22:47:13,877:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,877:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,880:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.0028700828552246094 sec
-2024-02-10 22:47:13,881:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00019288063049316406 sec
-2024-02-10 22:47:13,881:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,882:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0006418228149414062 sec
-2024-02-10 22:47:13,882:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,882:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,885:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.002639293670654297 sec
-2024-02-10 22:47:13,886:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.0001919269561767578 sec
-2024-02-10 22:47:13,886:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,887:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0006380081176757812 sec
-2024-02-10 22:47:13,887:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,887:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,890:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.003014087677001953 sec
-2024-02-10 22:47:13,892:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.0002741813659667969 sec
-2024-02-10 22:47:13,892:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,893:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0006291866302490234 sec
-2024-02-10 22:47:13,893:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,893:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,897:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.003932952880859375 sec
-2024-02-10 22:47:13,898:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00019502639770507812 sec
-2024-02-10 22:47:13,898:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
-2024-02-10 22:47:13,899:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0006401538848876953 sec
-2024-02-10 22:47:13,899:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,899:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,902:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.0026950836181640625 sec
-2024-02-10 22:47:13,903:DEBUG: Finished tracing + transforming jit(iota) in 0.00016999244689941406 sec
-2024-02-10 22:47:13,903:DEBUG: Compiling iota for with global shapes and types []. Argument mapping: ().
-2024-02-10 22:47:13,904:DEBUG: Finished jaxpr to MLIR module conversion jit(iota) in 0.0006399154663085938 sec
-2024-02-10 22:47:13,904:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,904:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:13,907:DEBUG: Finished XLA compilation of jit(iota) in 0.002766132354736328 sec
-2024-02-10 22:47:13,909:DEBUG: Finished tracing + transforming _shuffle for pjit in 0.0011341571807861328 sec
-2024-02-10 22:47:13,909:DEBUG: Compiling _shuffle for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[8000])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:13,952:DEBUG: Finished jaxpr to MLIR module conversion jit(_shuffle) in 0.04258084297180176 sec
-2024-02-10 22:47:13,952:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:13,952:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:14,049:DEBUG: Finished XLA compilation of jit(_shuffle) in 0.09610772132873535 sec
-2024-02-10 22:47:14,053:DEBUG: Finished tracing + transforming jit(dynamic_slice) in 0.0002739429473876953 sec
-2024-02-10 22:47:14,053:DEBUG: Compiling dynamic_slice for with global shapes and types [ShapedArray(int32[8000]), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
-2024-02-10 22:47:14,055:DEBUG: Finished jaxpr to MLIR module conversion jit(dynamic_slice) in 0.0009648799896240234 sec
-2024-02-10 22:47:14,055:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
-2024-02-10 22:47:14,055:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
-2024-02-10 22:47:14,059:DEBUG: Finished XLA compilation of jit(dynamic_slice) in 0.0038080215454101562 sec
+2024-02-10 21:54:02,850:DEBUG: Finished tracing + transforming jit(convert_element_type) in 0.00019669532775878906 sec
+2024-02-10 21:54:02,854:DEBUG: No jax_plugins namespace packages available
+2024-02-10 21:54:02,861:DEBUG: Initializing backend 'cpu'
+2024-02-10 21:54:02,866:DEBUG: Backend 'cpu' initialized
+2024-02-10 21:54:02,866:DEBUG: Initializing backend 'cuda'
+2024-02-10 21:54:02,866:INFO: Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-02-10 21:54:02,866:DEBUG: Initializing backend 'rocm'
+2024-02-10 21:54:02,866:INFO: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-02-10 21:54:02,866:DEBUG: Initializing backend 'tpu'
+2024-02-10 21:54:02,868:INFO: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-02-10 21:54:02,871:DEBUG: Compiling convert_element_type for with global shapes and types [ShapedArray(int32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:02,900:DEBUG: Finished jaxpr to MLIR module conversion jit(convert_element_type) in 0.028475046157836914 sec
+2024-02-10 21:54:02,904:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:02,904:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,096:DEBUG: Finished XLA compilation of jit(convert_element_type) in 0.19127368927001953 sec
+2024-02-10 21:54:03,100:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00025272369384765625 sec
+2024-02-10 21:54:03,100:DEBUG: Finished tracing + transforming _threefry_seed for pjit in 0.0013339519500732422 sec
+2024-02-10 21:54:03,100:DEBUG: Compiling _threefry_seed for with global shapes and types [ShapedArray(int32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:03,105:DEBUG: Finished jaxpr to MLIR module conversion jit(_threefry_seed) in 0.004456281661987305 sec
+2024-02-10 21:54:03,105:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,105:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,131:DEBUG: Finished XLA compilation of jit(_threefry_seed) in 0.025760173797607422 sec
+2024-02-10 21:54:03,133:DEBUG: Finished tracing + transforming ravel for pjit in 0.000152587890625 sec
+2024-02-10 21:54:03,134:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.00127410888671875 sec
+2024-02-10 21:54:03,134:DEBUG: Finished tracing + transforming _threefry_split_original for pjit in 0.0020596981048583984 sec
+2024-02-10 21:54:03,135:DEBUG: Finished tracing + transforming _threefry_split for pjit in 0.002593994140625 sec
+2024-02-10 21:54:03,135:DEBUG: Compiling _threefry_split for with global shapes and types [ShapedArray(uint32[2])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:03,139:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00016236305236816406 sec
+2024-02-10 21:54:03,139:DEBUG: Finished tracing + transforming fn for pjit in 0.00013828277587890625 sec
+2024-02-10 21:54:03,140:DEBUG: Finished tracing + transforming fn for pjit in 0.00039005279541015625 sec
+2024-02-10 21:54:03,140:DEBUG: Finished tracing + transforming fn for pjit in 0.00025534629821777344 sec
+2024-02-10 21:54:03,141:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0002071857452392578 sec
+2024-02-10 21:54:03,141:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00028204917907714844 sec
+2024-02-10 21:54:03,142:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0006036758422851562 sec
+2024-02-10 21:54:03,147:DEBUG: Finished tracing + transforming fn for pjit in 0.0002841949462890625 sec
+2024-02-10 21:54:03,154:DEBUG: Finished jaxpr to MLIR module conversion jit(_threefry_split) in 0.01883840560913086 sec
+2024-02-10 21:54:03,154:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,154:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,198:DEBUG: Finished XLA compilation of jit(_threefry_split) in 0.04376220703125 sec
+2024-02-10 21:54:03,199:DEBUG: Finished tracing + transforming _unstack for pjit in 0.00034689903259277344 sec
+2024-02-10 21:54:03,200:DEBUG: Compiling _unstack for with global shapes and types [ShapedArray(uint32[2,2])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:03,201:DEBUG: Finished jaxpr to MLIR module conversion jit(_unstack) in 0.0009772777557373047 sec
+2024-02-10 21:54:03,201:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,201:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,206:DEBUG: Finished XLA compilation of jit(_unstack) in 0.004671812057495117 sec
+2024-02-10 21:54:03,206:DEBUG: Finished tracing + transforming jit(convert_element_type) in 0.00010418891906738281 sec
+2024-02-10 21:54:03,206:DEBUG: Compiling convert_element_type for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:03,207:DEBUG: Finished jaxpr to MLIR module conversion jit(convert_element_type) in 0.00057220458984375 sec
+2024-02-10 21:54:03,207:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,207:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,211:DEBUG: Finished XLA compilation of jit(convert_element_type) in 0.0037360191345214844 sec
+2024-02-10 21:54:03,212:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0001571178436279297 sec
+2024-02-10 21:54:03,212:DEBUG: Compiling <lambda> for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:03,213:DEBUG: Finished jaxpr to MLIR module conversion jit(<lambda>) in 0.0006258487701416016 sec
+2024-02-10 21:54:03,213:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,213:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,216:DEBUG: Finished XLA compilation of jit(<lambda>) in 0.0031876564025878906 sec
+2024-02-10 21:54:03,217:DEBUG: Finished tracing + transforming true_divide for pjit in 0.0001595020294189453 sec
+2024-02-10 21:54:03,217:DEBUG: Compiling true_divide for with global shapes and types [ShapedArray(float32[]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,218:DEBUG: Finished jaxpr to MLIR module conversion jit(true_divide) in 0.0006954669952392578 sec
+2024-02-10 21:54:03,218:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,218:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,225:DEBUG: Finished XLA compilation of jit(true_divide) in 0.0069010257720947266 sec
+2024-02-10 21:54:03,228:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0002574920654296875 sec
+2024-02-10 21:54:03,229:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00015926361083984375 sec
+2024-02-10 21:54:03,229:DEBUG: Finished tracing + transforming fn for pjit in 0.00025343894958496094 sec
+2024-02-10 21:54:03,229:DEBUG: Finished tracing + transforming fn for pjit in 0.00017333030700683594 sec
+2024-02-10 21:54:03,230:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0022318363189697266 sec
+2024-02-10 21:54:03,230:DEBUG: Finished tracing + transforming fn for pjit in 0.0001461505889892578 sec
+2024-02-10 21:54:03,231:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00012493133544921875 sec
+2024-02-10 21:54:03,231:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00011944770812988281 sec
+2024-02-10 21:54:03,231:DEBUG: Finished tracing + transforming clip for pjit in 0.000690460205078125 sec
+2024-02-10 21:54:03,231:DEBUG: Finished tracing + transforming _truncated_normal for pjit in 0.004562854766845703 sec
+2024-02-10 21:54:03,232:DEBUG: Compiling _truncated_normal for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,236:DEBUG: Finished tracing + transforming ravel for pjit in 0.00010919570922851562 sec
+2024-02-10 21:54:03,237:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0008389949798583984 sec
+2024-02-10 21:54:03,238:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.0023856163024902344 sec
+2024-02-10 21:54:03,239:DEBUG: Finished tracing + transforming fn for pjit in 0.00018978118896484375 sec
+2024-02-10 21:54:03,240:DEBUG: Finished tracing + transforming fn for pjit in 0.00013303756713867188 sec
+2024-02-10 21:54:03,241:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0005109310150146484 sec
+2024-02-10 21:54:03,241:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00012350082397460938 sec
+2024-02-10 21:54:03,255:DEBUG: Finished jaxpr to MLIR module conversion jit(_truncated_normal) in 0.0228879451751709 sec
+2024-02-10 21:54:03,255:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,255:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,374:DEBUG: Finished XLA compilation of jit(_truncated_normal) in 0.11928796768188477 sec
+2024-02-10 21:54:03,383:DEBUG: Finished tracing + transforming fn for pjit in 0.0002608299255371094 sec
+2024-02-10 21:54:03,384:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[8000,51]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,385:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0008652210235595703 sec
+2024-02-10 21:54:03,385:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,385:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,392:DEBUG: Finished XLA compilation of jit(fn) in 0.006937742233276367 sec
+2024-02-10 21:54:03,393:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0002079010009765625 sec
+2024-02-10 21:54:03,394:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0002582073211669922 sec
+2024-02-10 21:54:03,394:DEBUG: Finished tracing + transforming fn for pjit in 0.0001518726348876953 sec
+2024-02-10 21:54:03,394:DEBUG: Finished tracing + transforming fn for pjit in 0.00015044212341308594 sec
+2024-02-10 21:54:03,395:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0018148422241210938 sec
+2024-02-10 21:54:03,395:DEBUG: Finished tracing + transforming _normal_real for pjit in 0.002217531204223633 sec
+2024-02-10 21:54:03,395:DEBUG: Finished tracing + transforming _normal for pjit in 0.002460002899169922 sec
+2024-02-10 21:54:03,395:DEBUG: Compiling _normal for with global shapes and types [ShapedArray(key<fry>[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:03,397:DEBUG: Finished tracing + transforming ravel for pjit in 6.556510925292969e-05 sec
+2024-02-10 21:54:03,398:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0008566379547119141 sec
+2024-02-10 21:54:03,398:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.001556396484375 sec
+2024-02-10 21:54:03,401:DEBUG: Finished tracing + transforming fn for pjit in 0.0002193450927734375 sec
+2024-02-10 21:54:03,402:DEBUG: Finished tracing + transforming fn for pjit in 0.0005257129669189453 sec
+2024-02-10 21:54:03,403:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00012731552124023438 sec
+2024-02-10 21:54:03,404:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00011348724365234375 sec
+2024-02-10 21:54:03,417:DEBUG: Finished jaxpr to MLIR module conversion jit(_normal) in 0.021442890167236328 sec
+2024-02-10 21:54:03,417:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,417:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,461:DEBUG: Finished XLA compilation of jit(_normal) in 0.043605804443359375 sec
+2024-02-10 21:54:03,462:DEBUG: Finished tracing + transforming fn for pjit in 0.00020885467529296875 sec
+2024-02-10 21:54:03,462:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[51]), ShapedArray(float32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,463:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0008094310760498047 sec
+2024-02-10 21:54:03,463:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,463:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,468:DEBUG: Finished XLA compilation of jit(fn) in 0.004570960998535156 sec
+2024-02-10 21:54:03,469:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0001506805419921875 sec
+2024-02-10 21:54:03,470:DEBUG: Finished tracing + transforming fn for pjit in 0.0002002716064453125 sec
+2024-02-10 21:54:03,470:DEBUG: Finished tracing + transforming fn for pjit in 0.00013756752014160156 sec
+2024-02-10 21:54:03,470:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0014140605926513672 sec
+2024-02-10 21:54:03,471:DEBUG: Finished tracing + transforming fn for pjit in 0.00011754035949707031 sec
+2024-02-10 21:54:03,471:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00013208389282226562 sec
+2024-02-10 21:54:03,471:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00011277198791503906 sec
+2024-02-10 21:54:03,471:DEBUG: Finished tracing + transforming clip for pjit in 0.0005915164947509766 sec
+2024-02-10 21:54:03,471:DEBUG: Finished tracing + transforming _truncated_normal for pjit in 0.003099203109741211 sec
+2024-02-10 21:54:03,472:DEBUG: Compiling _truncated_normal for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,474:DEBUG: Finished tracing + transforming ravel for pjit in 8.797645568847656e-05 sec
+2024-02-10 21:54:03,475:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0012159347534179688 sec
+2024-02-10 21:54:03,475:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.002078533172607422 sec
+2024-02-10 21:54:03,476:DEBUG: Finished tracing + transforming fn for pjit in 0.0001850128173828125 sec
+2024-02-10 21:54:03,477:DEBUG: Finished tracing + transforming fn for pjit in 0.00012040138244628906 sec
+2024-02-10 21:54:03,478:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00012540817260742188 sec
+2024-02-10 21:54:03,478:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00013065338134765625 sec
+2024-02-10 21:54:03,492:DEBUG: Finished jaxpr to MLIR module conversion jit(_truncated_normal) in 0.02005910873413086 sec
+2024-02-10 21:54:03,492:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,492:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,587:DEBUG: Finished XLA compilation of jit(_truncated_normal) in 0.09472775459289551 sec
+2024-02-10 21:54:03,588:DEBUG: Finished tracing + transforming fn for pjit in 0.00026607513427734375 sec
+2024-02-10 21:54:03,588:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[51,100]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,589:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0008282661437988281 sec
+2024-02-10 21:54:03,590:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,590:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,595:DEBUG: Finished XLA compilation of jit(fn) in 0.005077838897705078 sec
+2024-02-10 21:54:03,596:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00031447410583496094 sec
+2024-02-10 21:54:03,597:DEBUG: Finished tracing + transforming fn for pjit in 0.00025010108947753906 sec
+2024-02-10 21:54:03,597:DEBUG: Finished tracing + transforming fn for pjit in 0.00014209747314453125 sec
+2024-02-10 21:54:03,597:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0017414093017578125 sec
+2024-02-10 21:54:03,597:DEBUG: Finished tracing + transforming _normal_real for pjit in 0.0021092891693115234 sec
+2024-02-10 21:54:03,597:DEBUG: Finished tracing + transforming _normal for pjit in 0.002317190170288086 sec
+2024-02-10 21:54:03,598:DEBUG: Compiling _normal for with global shapes and types [ShapedArray(key<fry>[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:03,600:DEBUG: Finished tracing + transforming ravel for pjit in 7.319450378417969e-05 sec
+2024-02-10 21:54:03,600:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0006685256958007812 sec
+2024-02-10 21:54:03,600:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.0012328624725341797 sec
+2024-02-10 21:54:03,602:DEBUG: Finished tracing + transforming fn for pjit in 0.00020265579223632812 sec
+2024-02-10 21:54:03,603:DEBUG: Finished tracing + transforming fn for pjit in 0.0001342296600341797 sec
+2024-02-10 21:54:03,603:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00016999244689941406 sec
+2024-02-10 21:54:03,603:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00013589859008789062 sec
+2024-02-10 21:54:03,613:DEBUG: Finished jaxpr to MLIR module conversion jit(_normal) in 0.015398979187011719 sec
+2024-02-10 21:54:03,613:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,614:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,669:DEBUG: Finished XLA compilation of jit(_normal) in 0.05529332160949707 sec
+2024-02-10 21:54:03,670:DEBUG: Finished tracing + transforming fn for pjit in 0.0002779960632324219 sec
+2024-02-10 21:54:03,670:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[100]), ShapedArray(float32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,671:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0008957386016845703 sec
+2024-02-10 21:54:03,671:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,671:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,676:DEBUG: Finished XLA compilation of jit(fn) in 0.004541158676147461 sec
+2024-02-10 21:54:03,678:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00013971328735351562 sec
+2024-02-10 21:54:03,678:DEBUG: Finished tracing + transforming fn for pjit in 0.00023865699768066406 sec
+2024-02-10 21:54:03,678:DEBUG: Finished tracing + transforming fn for pjit in 0.00011086463928222656 sec
+2024-02-10 21:54:03,679:DEBUG: Finished tracing + transforming _uniform for pjit in 0.001390695571899414 sec
+2024-02-10 21:54:03,679:DEBUG: Finished tracing + transforming fn for pjit in 0.00013947486877441406 sec
+2024-02-10 21:54:03,679:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00013065338134765625 sec
+2024-02-10 21:54:03,680:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0001316070556640625 sec
+2024-02-10 21:54:03,680:DEBUG: Finished tracing + transforming clip for pjit in 0.0006487369537353516 sec
+2024-02-10 21:54:03,680:DEBUG: Finished tracing + transforming _truncated_normal for pjit in 0.0032613277435302734 sec
+2024-02-10 21:54:03,680:DEBUG: Compiling _truncated_normal for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,683:DEBUG: Finished tracing + transforming ravel for pjit in 0.00010371208190917969 sec
+2024-02-10 21:54:03,683:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0010936260223388672 sec
+2024-02-10 21:54:03,684:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.002008199691772461 sec
+2024-02-10 21:54:03,685:DEBUG: Finished tracing + transforming fn for pjit in 0.0002238750457763672 sec
+2024-02-10 21:54:03,686:DEBUG: Finished tracing + transforming fn for pjit in 0.0001556873321533203 sec
+2024-02-10 21:54:03,687:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00014901161193847656 sec
+2024-02-10 21:54:03,688:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00013184547424316406 sec
+2024-02-10 21:54:03,700:DEBUG: Finished jaxpr to MLIR module conversion jit(_truncated_normal) in 0.01930689811706543 sec
+2024-02-10 21:54:03,700:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,700:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,774:DEBUG: Finished XLA compilation of jit(_truncated_normal) in 0.07417702674865723 sec
+2024-02-10 21:54:03,775:DEBUG: Finished tracing + transforming fn for pjit in 0.0002560615539550781 sec
+2024-02-10 21:54:03,776:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[50,51]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,777:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0008676052093505859 sec
+2024-02-10 21:54:03,777:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,777:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,782:DEBUG: Finished XLA compilation of jit(fn) in 0.005462646484375 sec
+2024-02-10 21:54:03,784:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00013446807861328125 sec
+2024-02-10 21:54:03,785:DEBUG: Finished tracing + transforming fn for pjit in 0.0005440711975097656 sec
+2024-02-10 21:54:03,785:DEBUG: Finished tracing + transforming fn for pjit in 0.00013113021850585938 sec
+2024-02-10 21:54:03,785:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0018076896667480469 sec
+2024-02-10 21:54:03,786:DEBUG: Finished tracing + transforming fn for pjit in 0.00013113021850585938 sec
+2024-02-10 21:54:03,786:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00015997886657714844 sec
+2024-02-10 21:54:03,787:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00012040138244628906 sec
+2024-02-10 21:54:03,787:DEBUG: Finished tracing + transforming clip for pjit in 0.0006344318389892578 sec
+2024-02-10 21:54:03,787:DEBUG: Finished tracing + transforming _truncated_normal for pjit in 0.0036954879760742188 sec
+2024-02-10 21:54:03,787:DEBUG: Compiling _truncated_normal for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,844:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.05504012107849121 sec
+2024-02-10 21:54:03,853:DEBUG: Finished jaxpr to MLIR module conversion jit(_truncated_normal) in 0.06584692001342773 sec
+2024-02-10 21:54:03,853:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,853:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,955:DEBUG: Finished XLA compilation of jit(_truncated_normal) in 0.10106849670410156 sec
+2024-02-10 21:54:03,971:DEBUG: Finished tracing + transforming fn for pjit in 0.00031280517578125 sec
+2024-02-10 21:54:03,971:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[51,8000]), ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:03,972:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0009903907775878906 sec
+2024-02-10 21:54:03,972:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,972:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:03,979:DEBUG: Finished XLA compilation of jit(fn) in 0.006689310073852539 sec
+2024-02-10 21:54:03,981:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00018024444580078125 sec
+2024-02-10 21:54:03,981:DEBUG: Finished tracing + transforming fn for pjit in 0.0003070831298828125 sec
+2024-02-10 21:54:03,982:DEBUG: Finished tracing + transforming fn for pjit in 0.00020742416381835938 sec
+2024-02-10 21:54:03,982:DEBUG: Finished tracing + transforming _uniform for pjit in 0.0017783641815185547 sec
+2024-02-10 21:54:03,982:DEBUG: Finished tracing + transforming _normal_real for pjit in 0.0022089481353759766 sec
+2024-02-10 21:54:03,982:DEBUG: Finished tracing + transforming _normal for pjit in 0.002451181411743164 sec
+2024-02-10 21:54:03,983:DEBUG: Compiling _normal for with global shapes and types [ShapedArray(key<fry>[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:03,985:DEBUG: Finished tracing + transforming ravel for pjit in 8.296966552734375e-05 sec
+2024-02-10 21:54:03,985:DEBUG: Finished tracing + transforming threefry_2x32 for pjit in 0.0007336139678955078 sec
+2024-02-10 21:54:03,985:DEBUG: Finished tracing + transforming _threefry_random_bits_original for pjit in 0.001325368881225586 sec
+2024-02-10 21:54:03,987:DEBUG: Finished tracing + transforming fn for pjit in 0.00020742416381835938 sec
+2024-02-10 21:54:03,988:DEBUG: Finished tracing + transforming fn for pjit in 0.00018525123596191406 sec
+2024-02-10 21:54:03,988:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.00013399124145507812 sec
+2024-02-10 21:54:03,989:DEBUG: Finished tracing + transforming <lambda> for pjit in 0.0002944469451904297 sec
+2024-02-10 21:54:03,999:DEBUG: Finished jaxpr to MLIR module conversion jit(_normal) in 0.01641702651977539 sec
+2024-02-10 21:54:03,999:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:03,999:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,073:DEBUG: Finished XLA compilation of jit(_normal) in 0.07335042953491211 sec
+2024-02-10 21:54:04,074:DEBUG: Finished tracing + transforming fn for pjit in 0.00045871734619140625 sec
+2024-02-10 21:54:04,075:DEBUG: Compiling fn for with global shapes and types [ShapedArray(float32[8000]), ShapedArray(float32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:04,077:DEBUG: Finished jaxpr to MLIR module conversion jit(fn) in 0.0017781257629394531 sec
+2024-02-10 21:54:04,077:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,077:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,085:DEBUG: Finished XLA compilation of jit(fn) in 0.00768733024597168 sec
+2024-02-10 21:54:04,086:DEBUG: Finished tracing + transforming jit(convert_element_type) in 0.00011706352233886719 sec
+2024-02-10 21:54:04,086:DEBUG: Compiling convert_element_type for with global shapes and types [ShapedArray(int32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:04,087:DEBUG: Finished jaxpr to MLIR module conversion jit(convert_element_type) in 0.0010945796966552734 sec
+2024-02-10 21:54:04,088:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,088:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,092:DEBUG: Finished XLA compilation of jit(convert_element_type) in 0.004212141036987305 sec
+2024-02-10 21:54:04,093:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00016927719116210938 sec
+2024-02-10 21:54:04,093:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:04,094:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.000942230224609375 sec
+2024-02-10 21:54:04,094:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,095:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,102:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.007111787796020508 sec
+2024-02-10 21:54:04,106:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.0001571178436279297 sec
+2024-02-10 21:54:04,106:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:04,107:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0008153915405273438 sec
+2024-02-10 21:54:04,107:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,108:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,112:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.004724025726318359 sec
+2024-02-10 21:54:04,113:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.0001354217529296875 sec
+2024-02-10 21:54:04,113:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:04,114:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0006291866302490234 sec
+2024-02-10 21:54:04,114:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,114:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,118:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.004016876220703125 sec
+2024-02-10 21:54:04,119:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00012302398681640625 sec
+2024-02-10 21:54:04,119:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:04,120:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.000606536865234375 sec
+2024-02-10 21:54:04,120:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,120:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,124:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.0035974979400634766 sec
+2024-02-10 21:54:04,124:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 9.250640869140625e-05 sec
+2024-02-10 21:54:04,125:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:04,125:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0006093978881835938 sec
+2024-02-10 21:54:04,125:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,125:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,130:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.00419926643371582 sec
+2024-02-10 21:54:04,131:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00010085105895996094 sec
+2024-02-10 21:54:04,131:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:04,132:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0007619857788085938 sec
+2024-02-10 21:54:04,132:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,132:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,138:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.006227970123291016 sec
+2024-02-10 21:54:04,144:DEBUG: Finished tracing + transforming jit(broadcast_in_dim) in 0.00015783309936523438 sec
+2024-02-10 21:54:04,144:DEBUG: Compiling broadcast_in_dim for with global shapes and types [ShapedArray(float32[])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:04,145:DEBUG: Finished jaxpr to MLIR module conversion jit(broadcast_in_dim) in 0.0009489059448242188 sec
+2024-02-10 21:54:04,146:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,146:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,154:DEBUG: Finished XLA compilation of jit(broadcast_in_dim) in 0.007935523986816406 sec
+2024-02-10 21:54:04,155:DEBUG: Finished tracing + transforming jit(iota) in 0.00014162063598632812 sec
+2024-02-10 21:54:04,155:DEBUG: Compiling iota for with global shapes and types []. Argument mapping: ().
+2024-02-10 21:54:04,156:DEBUG: Finished jaxpr to MLIR module conversion jit(iota) in 0.0008707046508789062 sec
+2024-02-10 21:54:04,156:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,156:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,162:DEBUG: Finished XLA compilation of jit(iota) in 0.0056035518646240234 sec
+2024-02-10 21:54:04,164:DEBUG: Finished tracing + transforming _shuffle for pjit in 0.0006465911865234375 sec
+2024-02-10 21:54:04,164:DEBUG: Compiling _shuffle for with global shapes and types [ShapedArray(key<fry>[]), ShapedArray(int32[8000])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:04,183:DEBUG: Finished jaxpr to MLIR module conversion jit(_shuffle) in 0.018997907638549805 sec
+2024-02-10 21:54:04,183:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,183:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,352:DEBUG: Finished XLA compilation of jit(_shuffle) in 0.1688387393951416 sec
+2024-02-10 21:54:04,357:DEBUG: Finished tracing + transforming jit(dynamic_slice) in 0.0001785755157470703 sec
+2024-02-10 21:54:04,357:DEBUG: Compiling dynamic_slice for with global shapes and types [ShapedArray(int32[8000]), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:04,358:DEBUG: Finished jaxpr to MLIR module conversion jit(dynamic_slice) in 0.0010685920715332031 sec
+2024-02-10 21:54:04,359:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:04,359:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:04,365:DEBUG: Finished XLA compilation of jit(dynamic_slice) in 0.0062313079833984375 sec
+2024-02-10 21:54:06,988:DEBUG: Finished tracing + transforming jit(convert_element_type) in 0.0008764266967773438 sec
+2024-02-10 21:54:06,989:DEBUG: Compiling convert_element_type for with global shapes and types [ShapedArray(float32[10000,50])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:06,994:DEBUG: Finished jaxpr to MLIR module conversion jit(convert_element_type) in 0.004221200942993164 sec
+2024-02-10 21:54:06,995:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:06,995:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:07,015:DEBUG: Finished XLA compilation of jit(convert_element_type) in 0.01964712142944336 sec
+2024-02-10 21:54:07,017:DEBUG: Finished tracing + transforming jit(convert_element_type) in 0.0001595020294189453 sec
+2024-02-10 21:54:07,017:DEBUG: Compiling convert_element_type for with global shapes and types [ShapedArray(float32[10000,9])]. Argument mapping: (GSPMDSharding({replicated}),).
+2024-02-10 21:54:07,018:DEBUG: Finished jaxpr to MLIR module conversion jit(convert_element_type) in 0.0008680820465087891 sec
+2024-02-10 21:54:07,018:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:07,019:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:07,023:DEBUG: Finished XLA compilation of jit(convert_element_type) in 0.0045359134674072266 sec
+2024-02-10 21:54:07,025:DEBUG: Finished tracing + transforming jit(concatenate) in 0.00023365020751953125 sec
+2024-02-10 21:54:07,025:DEBUG: Compiling concatenate for with global shapes and types [ShapedArray(float32[10000,50]), ShapedArray(float32[10000,9])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:07,027:DEBUG: Finished jaxpr to MLIR module conversion jit(concatenate) in 0.0015726089477539062 sec
+2024-02-10 21:54:07,027:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:07,027:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:07,036:DEBUG: Finished XLA compilation of jit(concatenate) in 0.008848428726196289 sec
+2024-02-10 21:54:07,038:DEBUG: Finished tracing + transforming jit(dynamic_slice) in 0.00023818016052246094 sec
+2024-02-10 21:54:07,038:DEBUG: Compiling dynamic_slice for with global shapes and types [ShapedArray(float32[10000,59]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:07,039:DEBUG: Finished jaxpr to MLIR module conversion jit(dynamic_slice) in 0.0012857913970947266 sec
+2024-02-10 21:54:07,040:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:07,040:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:07,048:DEBUG: Finished XLA compilation of jit(dynamic_slice) in 0.008304357528686523 sec
+2024-02-10 21:54:07,049:DEBUG: Finished tracing + transforming jit(dynamic_slice) in 0.00017571449279785156 sec
+2024-02-10 21:54:07,049:DEBUG: Compiling dynamic_slice for with global shapes and types [ShapedArray(float32[10000,59]), ShapedArray(int32[], weak_type=True), ShapedArray(int32[], weak_type=True)]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:07,051:DEBUG: Finished jaxpr to MLIR module conversion jit(dynamic_slice) in 0.0010900497436523438 sec
+2024-02-10 21:54:07,051:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:07,051:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:07,058:DEBUG: Finished XLA compilation of jit(dynamic_slice) in 0.006636142730712891 sec
+2024-02-10 21:54:07,059:DEBUG: Finished tracing + transforming jit(concatenate) in 0.00014257431030273438 sec
+2024-02-10 21:54:07,059:DEBUG: Compiling concatenate for with global shapes and types [ShapedArray(float32[10000,58]), ShapedArray(float32[10000,1])]. Argument mapping: (GSPMDSharding({replicated}), GSPMDSharding({replicated})).
+2024-02-10 21:54:07,060:DEBUG: Finished jaxpr to MLIR module conversion jit(concatenate) in 0.0008714199066162109 sec
+2024-02-10 21:54:07,060:DEBUG: get_compile_options: num_replicas=1 num_partitions=1 device_assignment=[[CpuDevice(id=0)]]
+2024-02-10 21:54:07,060:DEBUG: get_compile_options XLA-AutoFDO profile: using XLA-AutoFDO profile version -1
+2024-02-10 21:54:07,066:DEBUG: Finished XLA compilation of jit(concatenate) in 0.005800485610961914 sec
+2024-02-10 21:54:07,071:DEBUG: Cannot interpret value of type <class 'function'> as an abstract array; it does not have a dtype attribute

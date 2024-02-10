@@ -1,19 +1,17 @@
-import os
 import itertools
 
 import jax
+import jax.numpy as jnp
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy.optimize import fsolve
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-import matplotlib.pyplot as plt
 import seaborn as sns
-
-import jax.numpy as jnp
 from jax import jit, value_and_grad, random
 from jax.example_libraries import stax, optimizers
 from jax.example_libraries.stax import Dense, Relu, Sigmoid
+from scipy.optimize import fsolve
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 
 def create_scenarios():
@@ -79,7 +77,6 @@ def preprocess_and_combine_data(*stations):
     return combined_data
 
 
-
 def remove_highly_correlated_features(features, threshold=0.9):
     """
     Remove highly correlated features from the input DataFrame.
@@ -93,7 +90,8 @@ def remove_highly_correlated_features(features, threshold=0.9):
     """
     # Check for NaN values in the input DataFrame
     if features.isnull().values.any():
-        raise ValueError("Input DataFrame 'features' contains NaN values. Please handle missing values before standardization.")
+        raise ValueError(
+            "Input DataFrame 'features' contains NaN values. Please handle missing values before standardization.")
 
     correlation_matrix = features.corr().abs()
 
@@ -130,7 +128,8 @@ def standardize_data(features):
 
         # Check for NaN values in the DataFrame
         if features.isnull().values.any():
-            raise ValueError("Input DataFrame 'features' contains NaN values. Please handle missing values before standardization.")
+            raise ValueError(
+                "Input DataFrame 'features' contains NaN values. Please handle missing values before standardization.")
 
         features = features.values
 
@@ -155,7 +154,9 @@ def split_data(features):
     - Split data: x_train, x_test, y_train, y_test.
     """
     target_column_index = -1  # Assuming the last column is the target
-    X_train, X_test, y_train, y_test = train_test_split(features[:, :target_column_index], features[:, target_column_index], test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(features[:, :target_column_index],
+                                                        features[:, target_column_index], test_size=0.2,
+                                                        random_state=42)
     return X_train, X_test, y_train, y_test
 
 
@@ -351,6 +352,7 @@ def reparameterize(rng, mean, log_var):
     eps = jax.random.normal(rng, mean.shape)
     return mean + jnp.exp(0.5 * log_var) * eps
 
+
 def binary_cross_entropy(x, x_rec):
     epsilon = 1e-6
     return - jnp.sum(x * jnp.log(x_rec + epsilon) + (1 - x) * jnp.log(1 - x_rec + epsilon), axis=-1)
@@ -375,6 +377,7 @@ def compute_loss(params, batch, encoder_fn, decoder_fn):
     total_loss = reconstruction_loss + kl_divergence_loss
 
     return total_loss
+
 
 def train_vae_model(x_train_standard, encoder_init, encoder_fn, decoder_init, decoder_fn, input_dim, latent_dim,
                     learning_rate, data_size, EPOCHS=200):
@@ -411,10 +414,10 @@ def train_vae_model(x_train_standard, encoder_init, encoder_fn, decoder_init, de
         for i in range(data_size // 64 - 1):
             batch = x_train_standard[permutation[i * 32:(i + 1) * 32]]
             rand_key, key = random.split(rand_key)
-            #opt_state = opt_update(i, batch, opt_state)  # Use opt_update for parameter update
+            # opt_state = opt_update(i, batch, opt_state)  # Use opt_update for parameter update
             params = get_params(opt_state)
-            #loss = compute_loss(params, batch, encoder_fn, decoder_fn)  # You need to define a loss function like compute_loss
-            #losses.append(loss)
+            # loss = compute_loss(params, batch, encoder_fn, decoder_fn)  # You need to define a loss function like compute_loss
+            # losses.append(loss)
 
     return opt_state, get_params(opt_state), decoder_fn
 
@@ -477,9 +480,8 @@ def generative_model(noise, scenario):
         raise ValueError(
             "Loaded DataFrame 'features' is empty or does not have columns. Check your data preprocessing.")
 
-    #visualize_correlation(features)
-    features = remove_highly_correlated_features(features,0.8)
-
+    # visualize_correlation(features)
+    features = remove_highly_correlated_features(features, 0.8)
 
     features = standardize_data(features)
 
@@ -496,8 +498,8 @@ def generative_model(noise, scenario):
     learning_rate = 0.001
     data_size = X_train.shape[0]
     encoder_init, encoder_fn, decoder_init, decoder_fn = build_vae_model(latent_dim, input_dim, hidden_dim)
-    opt_state, params_enc, params_dec = train_vae_model(X_train, encoder_init, encoder_fn, decoder_init, decoder_fn, input_dim, latent_dim, learning_rate, data_size)
-
+    opt_state, params_enc, params_dec = train_vae_model(X_train, encoder_init, encoder_fn, decoder_init, decoder_fn,
+                                                        input_dim, latent_dim, learning_rate, data_size)
 
     # Generate samples for given noise and scenario
     generated_samples = generate_samples(opt_state, params_dec, noise, scenario)
