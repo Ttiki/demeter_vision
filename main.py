@@ -12,7 +12,6 @@ logging.basicConfig(filename="check.log", level=logging.DEBUG,
                     format="%(asctime)s:%(levelname)s: %(message)s",
                     filemode='w')
 
-
 def simulate(noise, scenario):
     """
     Simulation of your Generative Model
@@ -52,5 +51,5 @@ if __name__ == "__main__":
     SCENARIO_NUMBER = 1  # <- PICK A SCENARIO NUMBER BETWEEN 1 AND 9
     noise = np.load("data/noise.npy")
     scenario = np.zeros((noise.shape[0], 9))  # create a vector of zeros with shape (n_samples, 9)
-    scenario[:, SCENARIO_NUMBER - 1] = 1
+    scenario[:, SCENARIO_NUMBER-1] = 1
     simulate(noise, scenario)
