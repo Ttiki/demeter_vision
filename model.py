@@ -436,9 +436,9 @@ def generator(params_dec, noise_and_label):
     noise = noise_and_label[:, :-1]  # All rows, all but the last column
     scenario_label = noise_and_label[:, -1:]  # All rows, only the last column
     input_vector = jnp.concatenate([noise, scenario_label], axis=-1)
-    #actual_params_dec = params_dec()
     generated_samples = decoder_fn(params_dec, input_vector)
     return generated_samples
+
 
 
 def generate_samples(opt_state, params_dec, noise, scenario_label, num_samples=50):
