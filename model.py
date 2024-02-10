@@ -53,9 +53,6 @@ def load_and_preprocess_data():
     )
     combined_data_features = combined_data_features.loc[:, ~combined_data_features.columns.duplicated()]
 
-    print("Loaded data shape:", combined_data_features.shape)
-    print("Columns:", combined_data_features.columns)
-
     return combined_data_features
 
 
@@ -72,25 +69,32 @@ def preprocess_and_combine_data(*stations):
     features_list = [station.iloc[:, :-1] for station in stations]
     yield_list = [station.iloc[:, -1] for station in stations]
 
-    # Combine data from all stations vertically (one on top of the other)
-    combined_data_features = pd.concat(features_list, axis=0, ignore_index=True)
-    combined_data_yield = pd.concat(yield_list, axis=0, ignore_index=True)
+    # Combine data from all stations horizontally
+    combined_data_features = pd.concat(features_list, axis=1)
+    combined_data_yield = pd.concat(yield_list, axis=1)
 
     # Combine features and yield
-    return pd.concat([combined_data_features, combined_data_yield], axis=1)
+    combined_data = pd.concat([combined_data_features, combined_data_yield], axis=1)
+
+    return combined_data
 
 
-def remove_highly_correlated_features(features):
+
+def remove_highly_correlated_features(features, threshold=0.9):
     """
     Remove highly correlated features from the input DataFrame.
 
     Args:
     - features: Input features DataFrame.
+    - threshold: Threshold for correlation. Features with correlation above this value will be removed.
 
     Returns:
     - DataFrame with highly correlated features removed.
     """
-    correlation_threshold = 0.8
+    # Check for NaN values in the input DataFrame
+    if features.isnull().values.any():
+        raise ValueError("Input DataFrame 'features' contains NaN values. Please handle missing values before standardization.")
+
     correlation_matrix = features.corr().abs()
 
     # Create a mask for values above the correlation threshold
@@ -98,8 +102,13 @@ def remove_highly_correlated_features(features):
     highly_correlated = correlation_matrix.multiply(mask)
 
     # Find and drop the highly correlated columns
-    to_drop = [column for column in highly_correlated.columns if any(highly_correlated[column])]
-    features = features.drop(to_drop, axis=1)
+    to_drop = [column for column in highly_correlated.columns if any(highly_correlated[column] > threshold)]
+
+    if to_drop:
+        print(f"Removing highly correlated features: {', '.join(to_drop)}")
+        features = features.drop(to_drop, axis=1)
+    else:
+        print("No highly correlated features to remove.")
 
     return features
 
@@ -322,12 +331,50 @@ def update(key, batch, opt_state, opt_update):
     Returns:
     - Updated optimization state and loss.
     """
+    # Get the current model parameters from the optimization state.
     params = get_params(opt_state)
+
+    # Compute the loss and gradients using the VAE loss function.
     loss, grads = value_and_grad(lambda params, x: vae_loss(key, params, x))(params, batch)
+
+    # Clip gradients to avoid exploding gradients.
     grads = jax.tree_map(lambda g: jnp.clip(g, -1.0, 1.0), grads)
+
+    # Update the optimization state using the optimizer's update function.
     opt_state = opt_update(0, grads, opt_state)
+
+    # Return the updated optimization state and the computed loss.
     return opt_state, loss
 
+
+def reparameterize(rng, mean, log_var):
+    eps = jax.random.normal(rng, mean.shape)
+    return mean + jnp.exp(0.5 * log_var) * eps
+
+def binary_cross_entropy(x, x_rec):
+    epsilon = 1e-6
+    return - jnp.sum(x * jnp.log(x_rec + epsilon) + (1 - x) * jnp.log(1 - x_rec + epsilon), axis=-1)
+
+
+def compute_loss(params, batch, encoder_fn, decoder_fn):
+    # Separate encoder and decoder parameters
+    _, enc_params, _, dec_params = params
+
+    # Encoding and decoding
+    z_mean, z_log_var = encoder_fn(enc_params, batch)
+    z = reparameterize(z_mean, z_log_var)
+    x_reconstructed = decoder_fn(dec_params, z)
+
+    # Reconstruction loss (usually cross-entropy for VAE)
+    reconstruction_loss = jnp.mean(jnp.sum(binary_cross_entropy(batch, x_reconstructed), axis=1))
+
+    # KL divergence loss
+    kl_divergence_loss = 0.5 * jnp.mean(jnp.sum(jnp.square(z_mean) + jnp.exp(z_log_var) - z_log_var - 1, axis=1))
+
+    # Total loss
+    total_loss = reconstruction_loss + kl_divergence_loss
+
+    return total_loss
 
 def train_vae_model(x_train_standard, encoder_init, encoder_fn, decoder_init, decoder_fn, input_dim, latent_dim,
                     learning_rate, data_size, EPOCHS=200):
@@ -364,7 +411,9 @@ def train_vae_model(x_train_standard, encoder_init, encoder_fn, decoder_init, de
         for i in range(data_size // 64 - 1):
             batch = x_train_standard[permutation[i * 32:(i + 1) * 32]]
             rand_key, key = random.split(rand_key)
-            opt_state, loss = update(key, batch, opt_state, opt_update)
+            #opt_state = opt_update(i, batch, opt_state)  # Use opt_update for parameter update
+            params = get_params(opt_state)
+            loss = compute_loss(params, batch, encoder_fn, decoder_fn)  # You need to define a loss function like compute_loss
             losses.append(loss)
 
     return opt_state, get_params(opt_state), decoder_fn
@@ -428,7 +477,7 @@ def generative_model(noise, scenario):
             "Loaded DataFrame 'features' is empty or does not have columns. Check your data preprocessing.")
 
     #visualize_correlation(features)
-    features = remove_highly_correlated_features(features)
+    features = remove_highly_correlated_features(features,0.8)
 
 
     features = standardize_data(features)
@@ -441,7 +490,7 @@ def generative_model(noise, scenario):
 
     # Train VAE model
     latent_dim = 50
-    input_dim = X_train.shape[1]
+    input_dim = X_train.shape[0]
     hidden_dim = 51
     learning_rate = 0.001
     data_size = X_train.shape[0]
