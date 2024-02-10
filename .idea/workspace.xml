@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76d06ac6-6873-400c-86b9-54d738964b35" name="Changes" comment="Problem with function passing">
+    <list default="true" id="76d06ac6-6873-400c-86b9-54d738964b35" name="Changes" comment="Cannot interpret value of type &lt;class 'function'&gt; as an abstract array;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/check.log" beforeDir="false" afterPath="$PROJECT_DIR$/check.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parameters/VAE.py" beforeDir="false" afterPath="$PROJECT_DIR$/parameters/VAE.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +99,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.run2.sh">
+  <component name="RunManager" selected="Python.main">
     <configuration name="genhack_data_manager" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="demeter_vision" />
       <option name="ENV_FILES" value="" />
@@ -198,8 +195,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Shell Script.run2.sh" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Shell Script.run2.sh" />
         <item itemvalue="Python.model" />
         <item itemvalue="Python.genhack_data_manager" />
       </list>
@@ -228,7 +225,7 @@
       <workItem from="1707472490107" duration="7580000" />
       <workItem from="1707496072586" duration="4540000" />
       <workItem from="1707556967069" duration="10397000" />
-      <workItem from="1707584087287" duration="15526000" />
+      <workItem from="1707584087287" duration="16706000" />
     </task>
     <task id="LOCAL-00001" summary="Array size error">
       <option name="closed" value="true" />
@@ -326,7 +323,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707601886884</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Cannot interpret value of type &lt;class 'function'&gt; as an abstract array;">
+      <option name="closed" value="true" />
+      <created>1707602641571</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1707602641571</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -370,7 +375,8 @@
     <MESSAGE value="Final problem with libs. Code should run" />
     <MESSAGE value="Still blocked. error on dot product" />
     <MESSAGE value="Problem with function passing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Problem with function passing" />
+    <MESSAGE value="Cannot interpret value of type &lt;class 'function'&gt; as an abstract array;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cannot interpret value of type &lt;class 'function'&gt; as an abstract array;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -407,12 +413,12 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>473</line>
+          <line>474</line>
           <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>483</line>
+          <line>484</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
@@ -427,7 +433,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>500</line>
+          <line>501</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -497,7 +503,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>456</line>
+          <line>457</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -515,6 +521,11 @@
           <line>437</line>
           <option name="timeStamp" value="81" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model.py</url>
+          <line>439</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -522,6 +533,6 @@
     <SUITE FILE_PATH="coverage/demeter_vision$model.coverage" NAME="model Coverage Results" MODIFIED="1707481868562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/demeter_vision$VAE.coverage" NAME="VAE Coverage Results" MODIFIED="1707398663851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/parameters" />
     <SUITE FILE_PATH="coverage/demeter_vision$genhack_data_manager.coverage" NAME="genhack_data_manager Coverage Results" MODIFIED="1707477986021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/demeter_vision$main.coverage" NAME="main Coverage Results" MODIFIED="1707601629280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/demeter_vision$main.coverage" NAME="main Coverage Results" MODIFIED="1707603579653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
