@@ -51,6 +51,10 @@ def load_and_preprocess_data():
     combined_data_features = preprocess_and_combine_data(
         station_40, station_49, station_63, station_80
     )
+    combined_data_features = combined_data_features.loc[:, ~combined_data_features.columns.duplicated()]
+
+    print("Loaded data shape:", combined_data_features.shape)
+    print("Columns:", combined_data_features.columns)
 
     return combined_data_features
 
@@ -68,9 +72,9 @@ def preprocess_and_combine_data(*stations):
     features_list = [station.iloc[:, :-1] for station in stations]
     yield_list = [station.iloc[:, -1] for station in stations]
 
-    # Combine data from all stations
-    combined_data_features = pd.concat(features_list, axis=1)
-    combined_data_yield = pd.concat(yield_list, axis=1)
+    # Combine data from all stations vertically (one on top of the other)
+    combined_data_features = pd.concat(features_list, axis=0, ignore_index=True)
+    combined_data_yield = pd.concat(yield_list, axis=0, ignore_index=True)
 
     # Combine features and yield
     return pd.concat([combined_data_features, combined_data_yield], axis=1)
@@ -87,11 +91,17 @@ def remove_highly_correlated_features(features):
     - DataFrame with highly correlated features removed.
     """
     correlation_threshold = 0.8
-    correlation_matrix = np.corrcoef(features, rowvar=False)
-    correlated_features = np.where(np.abs(correlation_matrix) > correlation_threshold)
-    unique_correlated_features = {tuple(sorted([i, j])) for i, j in zip(*correlated_features)}
-    to_delete = [item for sublist in unique_correlated_features for item in sublist]
-    return features.drop(features.columns[to_delete], axis=1)
+    correlation_matrix = features.corr().abs()
+
+    # Create a mask for values above the correlation threshold
+    mask = np.triu(np.ones(correlation_matrix.shape, dtype=bool), k=1).astype(int)
+    highly_correlated = correlation_matrix.multiply(mask)
+
+    # Find and drop the highly correlated columns
+    to_drop = [column for column in highly_correlated.columns if any(highly_correlated[column])]
+    features = features.drop(to_drop, axis=1)
+
+    return features
 
 
 def standardize_data(features):
@@ -102,40 +112,42 @@ def standardize_data(features):
     - features: Input features DataFrame or array-like.
 
     Returns:
-    - Standardized features.
+    - Standardized features as a NumPy array or DataFrame.
     """
     # If features is a DataFrame, check columns and convert to NumPy array
     if isinstance(features, pd.DataFrame):
         if features.empty or not features.columns.any():
             raise ValueError("Input DataFrame 'features' is empty or does not have columns.")
 
+        # Check for NaN values in the DataFrame
+        if features.isnull().values.any():
+            raise ValueError("Input DataFrame 'features' contains NaN values. Please handle missing values before standardization.")
+
         features = features.values
 
-    # Check if features is a 2D array-like object
-    if not isinstance(features, (np.ndarray, np.generic)) or features.ndim != 2:
-        raise ValueError("Input features must be a 2D array-like object.")
-
-    # Check if there is at least one feature
-    if features.shape[1] == 0:
-        raise ValueError("Input features must have at least one feature.")
-
     scaler = StandardScaler()
-    return scaler.fit_transform(features)
+    standardized_features = scaler.fit_transform(features)
+
+    # If the input was a DataFrame, return a DataFrame
+    if isinstance(features, pd.DataFrame):
+        standardized_features = pd.DataFrame(standardized_features, columns=features.columns)
+
+    return standardized_features
 
 
-def split_data(features, targets):
+def split_data(features):
     """
     Split data into training and testing sets.
 
     Args:
-    - features: Input features.
-    - targets: Target values.
+    - features: Input features as a NumPy array.
 
     Returns:
     - Split data: x_train, x_test, y_train, y_test.
     """
-    x_train, x_test, y_train, y_test = train_test_split(features, targets, test_size=0.2, random_state=42)
-    return x_train, x_test, y_train, y_test
+    target_column_index = -1  # Assuming the last column is the target
+    X_train, X_test, y_train, y_test = train_test_split(features[:, :target_column_index], features[:, target_column_index], test_size=0.2, random_state=42)
+    return X_train, X_test, y_train, y_test
 
 
 def visualize_correlation(features):
@@ -417,24 +429,25 @@ def generative_model(noise, scenario):
 
     #visualize_correlation(features)
     features = remove_highly_correlated_features(features)
+
+
     features = standardize_data(features)
 
     # Create scenarios and labels
     scenarios_and_labels = create_scenarios()
 
-    # Display scenarios and labels
-    for label, scenario in scenarios_and_labels.items():
-        print(f"{label}: {scenario}")
-
     # Split data into training and testing sets
-    X_train, X_test, y_train, y_test = split_data(features, features['YIELD'])
+    X_train, X_test, y_train, y_test = split_data(features)
 
     # Train VAE model
     latent_dim = 50
     input_dim = X_train.shape[1]
     hidden_dim = 51
+    learning_rate = 0.001
+    data_size = X_train.shape[0]
     encoder_init, encoder_fn, decoder_init, decoder_fn = build_vae_model(latent_dim, input_dim, hidden_dim)
-    opt_state, params_enc, params_dec = train_vae_model(X_train, encoder_init, encoder_fn, decoder_init, decoder_fn)
+    opt_state, params_enc, params_dec = train_vae_model(X_train, encoder_init, encoder_fn, decoder_init, decoder_fn, input_dim, latent_dim, learning_rate, data_size)
+
 
     # Generate samples for given noise and scenario
     generated_samples = generate_samples(opt_state, params_dec, noise, scenario)
