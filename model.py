@@ -358,7 +358,7 @@ def binary_cross_entropy(x, x_rec):
 
 def compute_loss(params, batch, encoder_fn, decoder_fn):
     # Separate encoder and decoder parameters
-    _, enc_params, _, dec_params = params
+    enc_params, _, dec_params, _ = params
 
     # Encoding and decoding
     z_mean, z_log_var = encoder_fn(enc_params, batch)
@@ -413,8 +413,8 @@ def train_vae_model(x_train_standard, encoder_init, encoder_fn, decoder_init, de
             rand_key, key = random.split(rand_key)
             #opt_state = opt_update(i, batch, opt_state)  # Use opt_update for parameter update
             params = get_params(opt_state)
-            loss = compute_loss(params, batch, encoder_fn, decoder_fn)  # You need to define a loss function like compute_loss
-            losses.append(loss)
+            #loss = compute_loss(params, batch, encoder_fn, decoder_fn)  # You need to define a loss function like compute_loss
+            #losses.append(loss)
 
     return opt_state, get_params(opt_state), decoder_fn
 
@@ -430,7 +430,8 @@ def generator(params_dec, noise_and_label):
     Returns:
     - Generated samples.
     """
-    noise, scenario_label = jnp.split(noise_and_label, [-1])
+    noise = noise_and_label[:, :-1]  # All rows, all but the last column
+    scenario_label = noise_and_label[:, -1:]  # All rows, only the last column
     input_vector = jnp.concatenate([noise, scenario_label], axis=-1)
     generated_samples = decoder_fn(params_dec, input_vector)
     return generated_samples
